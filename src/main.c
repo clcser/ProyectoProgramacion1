@@ -34,20 +34,26 @@ int main(int argc, char *argv[]) {
     }
     SDL_Surface *screen_surface = SDL_GetWindowSurface(window);
 
-    SDL_Surface *logo = IMG_Load("../assets/pato1.png");
+    SDL_Surface *duck = IMG_Load("../assets/pato1.png");
     SDL_Surface *fondo = IMG_Load("../assets/grass.png");
+    SDL_Surface *pipeline = IMG_Load("../assets/pipeline.png");
 
     int running = 1, count = 0, pos_y = 50;
     float gravedad = 0.5;
     bool puede_saltar = true;
     SDL_Event event;
 
-    SDL_Rect destino;
-    
-    destino.x = 40;
-    destino.y = 100;
-    destino.w = 70;
-    destino.h = 70;
+    SDL_Rect pato;   
+    pato.x = 40;
+    pato.y = 100;
+    pato.w = 100;
+    pato.h = 100;
+
+    SDL_Rect tuberia;
+    tuberia.x = 550;
+	tuberia.y = 0;
+	tuberia.w = 100;
+    tuberia.h = 280;
 
     while (running) {
         // procesar eventos
@@ -64,10 +70,15 @@ int main(int argc, char *argv[]) {
                             break;
                         case SDLK_SPACE:
                             if(event.key.repeat == 0) {
-                                destino.y -= 50;
-                                gravedad = -0.6;
-                            }
+                                if(pato.y-50 < 0){
+                                    pato.y = 0;
+                                }
+                                else{
+                                    pato.y -= 70;
+                                    gravedad = -0.6;
+                                }
                             break;
+                            }
                         default:
                             break;
                     }
@@ -82,18 +93,24 @@ int main(int argc, char *argv[]) {
         SDL_BlitSurface(fondo,NULL,screen_surface, NULL); 
         
         count ++;
-        if(count%8==0 && destino.y < 650) {  //para que no se mueva constantemente
-            destino.y += gravedad;
+        if(count%8==0 && pato.y < 620) {  //para que no se mueva constantemente
+            tuberia.x--;
+            pato.y += gravedad;
             gravedad += 0.1;
         }
 
-        SDL_BlitScaled(logo,NULL,screen_surface,&destino);
+        if(tuberia.x < -100)
+            tuberia.x = 620;
+
+        SDL_BlitScaled(pipeline, NULL, screen_surface, &tuberia);
+        SDL_BlitScaled(duck,NULL,screen_surface,&pato);
         // dibujar
         SDL_UpdateWindowSurface(window);
         }
 
+    SDL_FreeSurface(pipeline);
     SDL_FreeSurface(fondo);
-    SDL_FreeSurface(logo);
+    SDL_FreeSurface(duck);
     SDL_FreeSurface(screen_surface);
     SDL_DestroyWindow(window);
     IMG_Quit();
