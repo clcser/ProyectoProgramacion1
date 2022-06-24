@@ -42,24 +42,36 @@ int main(int argc, char *argv[]) {
     bool puede_saltar = true;
     SDL_Event event;
 
-    SDL_Rect destino = {40,100};
+    SDL_Rect destino;
+    
+    destino.x = 40;
+    destino.y = 100;
+    destino.w = 70;
+    destino.h = 70;
 
     while (running) {
         // procesar eventos
         while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT)
-                running = 0;
-
-            if (event.type == SDL_KEYDOWN) {
-                SDL_Keycode key = event.key.keysym.sym;
-                if (key == SDLK_q)
+            switch(event.type) {
+                case SDL_QUIT:
                     running = 0;
-            }
-
-            if(event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_SPACE && event.key.repeat == 0) {
-                destino.y -= 45;
-                gravedad = -0.7;
-                puede_saltar = false;
+                    break;
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym) {
+                        case SDLK_ESCAPE:
+                        case SDLK_q:
+                            running = 0;
+                            break;
+                        case SDLK_SPACE:
+                            if(event.key.repeat == 0) {
+                                destino.y -= 50;
+                                gravedad = -0.6;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
             }
         }
 
@@ -70,13 +82,10 @@ int main(int argc, char *argv[]) {
         SDL_BlitSurface(fondo,NULL,screen_surface, NULL); 
         
         count ++;
-        if(count%8==0 && destino.y < 620) {  //para que no se mueva constantemente
+        if(count%8==0 && destino.y < 650) {  //para que no se mueva constantemente
             destino.y += gravedad;
             gravedad += 0.1;
         }
-
-        destino.w = 100;
-        destino.h = 100;
 
         SDL_BlitScaled(logo,NULL,screen_surface,&destino);
         // dibujar
