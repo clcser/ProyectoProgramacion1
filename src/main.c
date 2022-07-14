@@ -5,11 +5,20 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <math.h>
+#include <time.h>
 
-const int SCREEN_WIDTH = 720;	
+void generar_tuberia(SDL_Rect* rect, int i){
+    rect->h= rand()%720;
+    rect->y = 0;
+    rect->x= 100 + 50*i;
+    rect->w= 100;
+}
+
+const int SCREEN_WIDTH = 720;
 const int SCREEN_HEIGHT = 720;
 
 int main(int argc, char *argv[]) {
+    srand(time(0));
     SDL_Window *window = NULL;
     const unsigned char* key;
 	key = SDL_GetKeyboardState(NULL);
@@ -34,26 +43,27 @@ int main(int argc, char *argv[]) {
     }
     SDL_Surface *screen_surface = SDL_GetWindowSurface(window);
 
-    SDL_Surface *duck = IMG_Load("../assets/pato1.png");
-    SDL_Surface *fondo = IMG_Load("../assets/grass.png");
-    SDL_Surface *pipeline = IMG_Load("../assets/pipeline.png");
+    SDL_Surface *duck = IMG_Load("../folder/pato1.png");
+    SDL_Surface *fondo = IMG_Load("../folder/grass.png");
+    SDL_Surface *pipeline = IMG_Load("../folder/pipeline.png");
 
     int running = 1, count = 0, pos_y = 50;
     float gravedad = 0.5;
     bool puede_saltar = true;
     SDL_Event event;
 
-    SDL_Rect pato;   
+    SDL_Rect pato;
     pato.x = 40;
     pato.y = 100;
-    pato.w = 100;
-    pato.h = 100;
+    pato.w = 80;
+    pato.h = 80;
 
     SDL_Rect tuberia;
     tuberia.x = 550;
 	tuberia.y = 0;
 	tuberia.w = 100;
     tuberia.h = 280;
+    generar_tuberia(&tuberia, 4);
 
     while (running) {
         // procesar eventos
@@ -77,27 +87,35 @@ int main(int argc, char *argv[]) {
                                     pato.y -= 70;
                                     gravedad = -0.6;
                                 }
-                            break;
+
                             }
+                            break;
                         default:
                             break;
                     }
-                    break;
+                    //break;
             }
         }
 
         // limpia la pantalla
         SDL_FillRect(screen_surface, NULL, SDL_MapRGB(screen_surface->format, 255, 255, 255));
- 
+
         // imprimir fondo
-        SDL_BlitSurface(fondo,NULL,screen_surface, NULL); 
-        
+        SDL_BlitSurface(fondo,NULL,screen_surface, NULL);
+
         count ++;
-        if(count%8==0 && pato.y < 620) {  //para que no se mueva constantemente
-            tuberia.x--;
+        if(pato.y < 620 && count%5==0) {  //para que no se mueva constantemente
+
             pato.y += gravedad;
             gravedad += 0.1;
         }
+        if(count%5==0)tuberia.x--;
+
+        if(pato.y<0){
+            pato.y=0;
+
+        }
+
 
         if(tuberia.x < -100)
             tuberia.x = 620;
