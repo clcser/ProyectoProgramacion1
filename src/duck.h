@@ -2,17 +2,16 @@
 #define DUCK_H
 
 #include <SDL2/SDL.h>
-#define GRAVITY = 1
 
 typedef struct {
     SDL_Surface *image;
     SDL_Rect position;
     float vel;
     float jumpForce;
-} duck;
+} Duck;
 
-duck newDuck();
-void duckMove();
-void duckDetectCollission();
+Duck Duck_new();
+void Duck_move();
+void Duck_detect_collission();
 
 #endif //DUCK_H

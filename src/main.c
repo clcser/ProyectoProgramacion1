@@ -6,6 +6,23 @@
 #include <SDL2/SDL_ttf.h>
 #include <math.h>
 #include <time.h>
+#include "game.h"
+#include "context.h"
+
+int main(int argc, char *argv[]) {
+    Context_init();
+    
+    Game game = Game_new();     
+    Game_main_loop(game);
+    
+    Game_delete(game);
+    Context_quit();
+    
+    return 0;
+}
+
+
+/*
 
 void generar_tuberia(SDL_Rect* rect, int i){
     rect->h= rand()%720;
@@ -65,7 +82,7 @@ int main(int argc, char *argv[]) {
     tuberia.h = 280;
     generar_tuberia(&tuberia, 4);
 
-    while (running) {
+    while (running) 
         // procesar eventos
         while (SDL_PollEvent(&event)) {
             switch(event.type) {
@@ -136,3 +153,4 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+*/
