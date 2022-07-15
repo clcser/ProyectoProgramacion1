@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
 }
 
 
-/*
 
+/*
 void generar_tuberia(SDL_Rect* rect, int i){
     rect->h= rand()%720;
     rect->y = 0;

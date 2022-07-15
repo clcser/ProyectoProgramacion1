@@ -71,15 +71,18 @@ void Game_main_loop(Game game) {
             game.duck.vel += 0.1;
         }
 
-        if(count % 5 == 0)count:
+        if(count % 4 == 0){
             game.pipeline->upper.position.x--;
             game.pipeline->lower.position.x--;
+        }
 
         if(game.duck.position.y < 0)
             game.duck.position.y = 0;
 
-        if(game.pipeline->upper.position.x < -100)
-            game.pipeline->upper.position.x = game.pipeline->lower.position.x = 620;
+        for(int i = 0; i < PIPE_NUMBER; i++) {
+            if(game.pipeline[i].upper.position.x < -100 || game.pipeline[i].lower.position.x < -100)
+                Pipeline_respawn(game.pipeline[i]);
+        }
         
         // dibujar
         Game_draw(game);

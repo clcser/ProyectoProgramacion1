@@ -8,8 +8,8 @@ Duck Duck_new() { //hacer que tenga de parametro una imagen
     
     duck.position.x = 40;
     duck.position.y = 100;
-    duck.position.w = 80;
-    duck.position.h = 80;
+    duck.position.w = 60;
+    duck.position.h = 60;
 
     return duck;
 }

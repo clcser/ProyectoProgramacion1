@@ -11,16 +11,16 @@ static SDL_Surface *pipeline_lower_surface = NULL;
 Pipeline Pipeline_new() {
     Pipeline pipeline;
 
-    pipeline.center = rand() % 600 + 40; // centro de las tuberias (al azar)
+    pipeline.center = rand() % 620 + 40; // centro de las tuberias (al azar)
     
     if (pipeline_upper_surface == NULL) {
         pipeline_upper_surface = IMG_Load("../assets/pipelineup.png");
     }
     pipeline.upper.image = pipeline_upper_surface;    
 
-    pipeline.upper.position.h = pipeline_upper_surface->h * 2;
-    pipeline.upper.position.w = pipeline_upper_surface->w * 2;     
-    pipeline.upper.position.y = pipeline.center + 20;
+    pipeline.upper.position.h = pipeline_upper_surface->h * 4;
+    pipeline.upper.position.w = pipeline_upper_surface->w * 4;     
+    pipeline.upper.position.y = 20-pipeline.center;
     pipeline.upper.position.x = 720;
    
 
@@ -29,14 +29,24 @@ Pipeline Pipeline_new() {
     }
     pipeline.lower.image = pipeline_lower_surface;    
 
-    pipeline.lower.position.h = pipeline_lower_surface->h * 2;
-    pipeline.lower.position.w = pipeline_lower_surface->w * 2;     
-    pipeline.lower.position.y = pipeline.center - 20;
-    pipeline.lower.position.x = 720; 
+    pipeline.lower.position.h = pipeline_lower_surface->h * 4;
+    pipeline.lower.position.w = pipeline_lower_surface->w * 4;     
+    pipeline.lower.position.y = 700-pipeline.center;
+    pipeline.lower.position.x = 720;
 
     return pipeline;
 }
-
+/*
+void Pipeline_move() {
+    for(int i = 0; i < PIPE_NUMBER; i++) {
+        pipeline[i].upper.position.x--;
+        pipeline[i].upper.position.x--;
+    }
+}*/
+void Pipeline_respawn(Pipeline *pipeline) {
+    pipeline[i].center = rand() % 600 + 40;            
+    pipeline[i].upper.position.x = pipeline[i].lower.position.x = 720;
+}
 /*
 bool colision(SDL_Rect *pato, struct tubo *tubo) {
     if(pato->y < tubo->center-120 || (pato->y + pato->h) > tubo->center+120)
