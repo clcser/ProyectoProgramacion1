@@ -41,9 +41,9 @@ Pipeline Pipeline_new() {
 void Pipeline_move(Pipeline *pipeline) {
     pipeline->upper.position.x--;
     pipeline->lower.position.x--;
-    pipeline->center--;
+    //pipeline->center--;
 
-    if (pipeline->center < -200) {
+    if (pipeline->upper.position.x < -100) {
         Pipeline_respawn(pipeline);
     }
 }
