@@ -24,8 +24,10 @@ void Game_draw(Game game) {
     SDL_BlitSurface(game.background[0].image, NULL, game.screen_surface, NULL);
     SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, NULL);    
     for(int i = 0; i < PIPE_NUMBER; i++) {
-        SDL_BlitScaled(game.pipeline[i].upper.image, NULL, game.screen_surface, &game.pipeline[i].upper.position);        
-        SDL_BlitScaled(game.pipeline[i].lower.image, NULL, game.screen_surface, &game.pipeline[i].lower.position);        
+        SDL_Rect dest = game.pipeline[i].upper.position;
+        dest.y -= game.pipeline[i].upper.image->h;
+        SDL_BlitScaled(game.pipeline[i].upper.image, NULL, game.screen_surface, &dest);
+        SDL_BlitScaled(game.pipeline[i].lower.image, NULL, game.screen_surface, &game.pipeline[i].lower.position);
     }    
     SDL_BlitScaled(game.duck.image, NULL, game.screen_surface, &game.duck.position);
     SDL_UpdateWindowSurface(window);
@@ -72,25 +74,30 @@ void Game_main_loop(Game game) {
         }
 
         if(count % 4 == 0){
-            game.pipeline->upper.position.x--;
-            game.pipeline->lower.position.x--;
+            //game.pipeline->upper.position.x--;
+            //game.pipeline->lower.position.x--;
         }
 
         if(game.duck.position.y < 0)
             game.duck.position.y = 0;
 
         for(int i = 0; i < PIPE_NUMBER; i++) {
-            if(game.pipeline[i].upper.position.x < -100 || game.pipeline[i].lower.position.x < -100)
-                Pipeline_respawn(game.pipeline[i]);
+            //if(game.pipeline[i].upper.position.x < -100 || game.pipeline[i].lower.position.x < -100)
+            //    Pipeline_respawn(game.pipeline[i]);
+            Pipeline_move(&game.pipeline[i]);
         }
         
         // dibujar
         Game_draw(game);
-        }
+    }
 }
 
 //void optionsMenu();
 //void runGame();
+
+void Game_manage_collissions(Game game) {
+
+}
 
 void Game_delete(Game game) {
     SDL_FreeSurface(game.pipeline->upper.image);

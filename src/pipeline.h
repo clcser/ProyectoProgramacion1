@@ -20,7 +20,7 @@ typedef struct {
 
 Pipeline Pipeline_new();
 
-void Pipeline_move(Pipeline pipeline);
+void Pipeline_move(Pipeline *pipeline);
 
 void Pipeline_respawn(Pipeline *pipeline);
 

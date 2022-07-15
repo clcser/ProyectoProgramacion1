@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 
 #define SCALE 2
+#define SEPARATION 50
 
 static SDL_Surface *pipeline_upper_surface = NULL;
 static SDL_Surface *pipeline_lower_surface = NULL;
@@ -36,16 +37,21 @@ Pipeline Pipeline_new() {
 
     return pipeline;
 }
-/*
-void Pipeline_move() {
-    for(int i = 0; i < PIPE_NUMBER; i++) {
-        pipeline[i].upper.position.x--;
-        pipeline[i].upper.position.x--;
+
+void Pipeline_move(Pipeline *pipeline) {
+    pipeline->upper.position.x--;
+    pipeline->lower.position.x--;
+    pipeline->center--;
+
+    if (pipeline->center < -200) {
+        Pipeline_respawn(pipeline);
     }
-}*/
+}
 void Pipeline_respawn(Pipeline *pipeline) {
-    pipeline[i].center = rand() % 600 + 40;            
-    pipeline[i].upper.position.x = pipeline[i].lower.position.x = 720;
+    pipeline->center = rand() % 600 + 40;
+    pipeline->upper.position.x = pipeline->lower.position.x = 720;
+    pipeline->upper.position.y = pipeline->center + SEPARATION / 2;
+    pipeline->lower.position.y = pipeline->center - SEPARATION / 2;
 }
 /*
 bool colision(SDL_Rect *pato, struct tubo *tubo) {
