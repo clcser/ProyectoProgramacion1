@@ -15,3 +15,4 @@ void Duck_move();
 void Duck_detect_collission();
 
 #endif //DUCK_H
+

@@ -4,15 +4,15 @@
 #include <SDL2/SDL_image.h>
 
 #define SCALE 2
-#define SEPARATION 50
+#define SEPARATION 100
 
 static SDL_Surface *pipeline_upper_surface = NULL;
 static SDL_Surface *pipeline_lower_surface = NULL;
 
-Pipeline Pipeline_new() {
+Pipeline Pipeline_new(int separacion) { // hay que arreglar los numeros en esta funcion
     Pipeline pipeline;
 
-    pipeline.center = rand() % 620 + 40; // centro de las tuberias (al azar)
+    pipeline.center = rand() % 400 + 200; // centro de las tuberias (al azar)
     
     if (pipeline_upper_surface == NULL) {
         pipeline_upper_surface = IMG_Load("../assets/pipelineup.png");
@@ -21,8 +21,8 @@ Pipeline Pipeline_new() {
 
     pipeline.upper.position.h = pipeline_upper_surface->h * 4;
     pipeline.upper.position.w = pipeline_upper_surface->w * 4;     
-    pipeline.upper.position.y = 20-pipeline.center;
-    pipeline.upper.position.x = 720;
+    pipeline.upper.position.y = pipeline.center - SEPARATION / 2 - 600;
+    pipeline.upper.position.x = 720 + 200*separacion;
    
 
     if (pipeline_lower_surface == NULL) {
@@ -32,8 +32,8 @@ Pipeline Pipeline_new() {
 
     pipeline.lower.position.h = pipeline_lower_surface->h * 4;
     pipeline.lower.position.w = pipeline_lower_surface->w * 4;     
-    pipeline.lower.position.y = 700-pipeline.center;
-    pipeline.lower.position.x = 720;
+    pipeline.lower.position.y = pipeline.center + SEPARATION / 2;
+    pipeline.lower.position.x = 720 + 200*separacion;
 
     return pipeline;
 }
@@ -48,10 +48,10 @@ void Pipeline_move(Pipeline *pipeline) {
     }
 }
 void Pipeline_respawn(Pipeline *pipeline) {
-    pipeline->center = rand() % 600 + 40;
-    pipeline->upper.position.x = pipeline->lower.position.x = 720;
-    pipeline->upper.position.y = pipeline->center + SEPARATION / 2;
-    pipeline->lower.position.y = pipeline->center - SEPARATION / 2;
+    pipeline->center = rand() % 400 + 200;
+    pipeline->upper.position.x = pipeline->lower.position.x = 700;
+    pipeline->upper.position.y = pipeline->center - SEPARATION / 2 - 600;
+    pipeline->lower.position.y = pipeline->center + SEPARATION / 2;
 }
 /*
 bool colision(SDL_Rect *pato, struct tubo *tubo) {

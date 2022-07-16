@@ -14,7 +14,7 @@ Game Game_new() {
     game.background[0] = Background_new();
     game.background[1] = Background_new();
     for(int i = 0; i < PIPE_NUMBER; i++) {
-        game.pipeline[i] = Pipeline_new();    
+        game.pipeline[i] = Pipeline_new(i);    
     }
     return game;
 }
@@ -68,12 +68,12 @@ void Game_main_loop(Game game) {
 
         // actualizar variables
         count ++;
-        if(game.duck.position.y < 620 && count%5==0) {  //para que no se mueva constantemente
+        if(game.duck.position.y < 660 && count%4==0) {  //para que no se mueva constantemente
             game.duck.position.y += game.duck.vel;
             game.duck.vel += 0.1;
         }
 
-        if(count % 4 == 0){
+        if(count % 4 == 0) {
             //game.pipeline->upper.position.x--;
             //game.pipeline->lower.position.x--;
         }

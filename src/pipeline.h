@@ -2,7 +2,7 @@
 #define PIPELINE_H
 
 #define PIPE_SPEED 1
-#define PIPE_NUMBER 6
+#define PIPE_NUMBER 4
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
@@ -18,7 +18,7 @@ typedef struct {
 } Pipeline;
 
 
-Pipeline Pipeline_new();
+Pipeline Pipeline_new(int separacion);
 
 void Pipeline_move(Pipeline *pipeline);
 
