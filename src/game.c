@@ -55,7 +55,7 @@ void Game_main_loop(Game game) {
                                     game.duck.position.y = 0;
                                 }
                                 else{
-                                    game.duck.position.y -= 70;
+                                    game.duck.position.y -= 60;
                                     game.duck.vel = -0.6;
                                 }
                             }
@@ -70,7 +70,7 @@ void Game_main_loop(Game game) {
         count ++;
         if(game.duck.position.y < 660 && count%4==0) {  //para que no se mueva constantemente
             game.duck.position.y += game.duck.vel;
-            game.duck.vel += 0.1;
+            game.duck.vel += 0.11;
         }
 
         if(count % 4 == 0) {
@@ -82,9 +82,11 @@ void Game_main_loop(Game game) {
             game.duck.position.y = 0;
 
         for(int i = 0; i < PIPE_NUMBER; i++) {
+            if(count % 2 == 0) {
             //if(game.pipeline[i].upper.position.x < -100 || game.pipeline[i].lower.position.x < -100)
             //    Pipeline_respawn(game.pipeline[i]);
-            Pipeline_move(&game.pipeline[i]);
+                Pipeline_move(&game.pipeline[i]);
+            }
         }
         
         // dibujar

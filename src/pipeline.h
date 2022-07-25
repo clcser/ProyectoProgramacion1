@@ -2,7 +2,7 @@
 #define PIPELINE_H
 
 #define PIPE_SPEED 1
-#define PIPE_NUMBER 4
+#define PIPE_NUMBER 3
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
