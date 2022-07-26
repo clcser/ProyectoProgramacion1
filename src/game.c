@@ -55,7 +55,6 @@ void Game_main_loop(Game game) {
                             running = 0;
                             break;
                         case SDLK_SPACE:
-<<<<<<< HEAD
                             costume = 1;
                             if(event.key.repeat == 0) {                           
                                 if(game.duck.position.y-50 < 0){
@@ -65,17 +64,16 @@ void Game_main_loop(Game game) {
                                     game.duck.position.y -= 60;
                                     game.duck.vel = -0.6;
                                 }
-=======
+                            }    
                             if(event.key.repeat == 0) {
                                 jump = 1;
->>>>>>> refs/remotes/origin/master
                             }
                             break;
                         default:
                             break;
                     } 
-                default:
-                    break;  
+                // default:
+                   // break;  
             }
         }
 
