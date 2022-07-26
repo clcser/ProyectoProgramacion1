@@ -1,13 +1,13 @@
 #include "game.h"
 #include <SDL2/SDL_image.h>
 
-Duck Duck_new() { //hacer que tenga de parametro una imagen(?
+Duck Duck_new() { // hacer que tenga de parametro una imagen(?
     Duck duck;
     
     duck.image = IMG_Load("../assets/duck.png");
     
-    duck.position.x = 40;
-    duck.position.y = 100;
+    duck.position.x = 60;
+    duck.position.y = 300;
     duck.position.w = 60;
     duck.position.h = 60;
 

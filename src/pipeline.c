@@ -5,12 +5,12 @@
 #include <SDL2/SDL_image.h>
 
 #define SCALE 2
-#define SEPARATION 120 //cambiar nombre a SEPARATION_Y
+#define SEPARATION_Y 200
 
-static SDL_Surface *pipeline_upper_surface = NULL; 
+static SDL_Surface *pipeline_upper_surface = NULL;
 static SDL_Surface *pipeline_lower_surface = NULL;
 
-Pipeline Pipeline_new(int separacion) { // cambiar nombre a separation_x
+Pipeline Pipeline_new(int separation_x) {
     Pipeline pipeline;
 
     pipeline.center = rand() % 400 + 200; // centro de las tuberias (al azar)
@@ -22,8 +22,8 @@ Pipeline Pipeline_new(int separacion) { // cambiar nombre a separation_x
 
     pipeline.upper.position.h = pipeline_upper_surface->h * 4;
     pipeline.upper.position.w = pipeline_upper_surface->w * 4;     
-    pipeline.upper.position.y = pipeline.center - SEPARATION / 2 - 600;
-    pipeline.upper.position.x = WINDOW_WIDTH + 270*separacion; 
+    pipeline.upper.position.y = pipeline.center - SEPARATION_Y / 2 - 548; // 548 := medida de la tuberia (87*4) + 200 de margen del rand
+    pipeline.upper.position.x = WINDOW_WIDTH + 270*separation_x; 
    
 
     if (pipeline_lower_surface == NULL) {
@@ -33,8 +33,8 @@ Pipeline Pipeline_new(int separacion) { // cambiar nombre a separation_x
 
     pipeline.lower.position.h = pipeline_lower_surface->h * 4;
     pipeline.lower.position.w = pipeline_lower_surface->w * 4;     
-    pipeline.lower.position.y = pipeline.center + SEPARATION / 2;
-    pipeline.lower.position.x = WINDOW_WIDTH + 270*separacion;
+    pipeline.lower.position.y = pipeline.center + SEPARATION_Y / 2;
+    pipeline.lower.position.x = WINDOW_WIDTH + 270*separation_x;
 
     return pipeline;
 }
@@ -51,8 +51,8 @@ void Pipeline_move(Pipeline *pipeline) {
 void Pipeline_respawn(Pipeline *pipeline) {
     pipeline->center = rand() % 400 + 200;
     pipeline->upper.position.x = pipeline->lower.position.x = WINDOW_WIDTH;
-    pipeline->upper.position.y = pipeline->center - SEPARATION / 2 - 600;
-    pipeline->lower.position.y = pipeline->center + SEPARATION / 2;
+    pipeline->upper.position.y = pipeline->center - SEPARATION_Y / 2 - 548; // medida de la tuberia (87 * 4) + 200 de margen del rand
+    pipeline->lower.position.y = pipeline->center + SEPARATION_Y / 2;
 }
 /*
 bool colision(SDL_Rect *pato, struct tubo *tubo) {

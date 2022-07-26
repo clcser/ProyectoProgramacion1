@@ -21,7 +21,7 @@ void Game_draw(Game game);
 
 void Game_main_loop(Game game);
 
-void Game_manage_collissions(Game game);
+void Game_manage_collissions(Duck *duck, Pipeline *pipeline);
 
 void Game_delete(Game game);
 

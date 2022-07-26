@@ -12,6 +12,5 @@ typedef struct {
 
 Duck Duck_new();
 void Duck_move();
-int Duck_collission();
 
 #endif //DUCK_H

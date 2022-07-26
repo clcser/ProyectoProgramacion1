@@ -24,6 +24,4 @@ void Pipeline_move(Pipeline *pipeline);
 
 void Pipeline_respawn(Pipeline *pipeline);
 
-//bool colision(SDL_Rect *pato, Pipeline *Pipeline);
-
 #endif //PIPELINE_H

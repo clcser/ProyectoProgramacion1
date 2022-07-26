@@ -52,14 +52,6 @@ void Game_main_loop(Game game) {
                         case SDLK_SPACE:
                             if(event.key.repeat == 0) {
                                 jump = 1;
-                                //Duck_move(&game.duck);
-                                /*if(game.duck.position.y -50 < 0) {
-                                    game.duck.position.y = 0;
-                                }   
-                                else {
-                                    game.duck.position.y -= 60;
-                                    game.duck.vel = -0.6;
-                                }*/
                             }
                             break;
                         default:
@@ -70,26 +62,14 @@ void Game_main_loop(Game game) {
 
         // actualizar variables
         count ++;
-        /*if(game.duck.position.y < 660 && count%4==0) {  //para que no se mueva constantemente
-            game.duck.position.y += game.duck.vel;
-            game.duck.vel += 0.11;
-        }*/
 
         if(count % 4 == 0) {
             Duck_move(&game.duck, &jump, count);
-            //jump = 0;
-            //game.pipeline->upper.position.x--;
-            //game.pipeline->lower.position.x--;
         }
-/*
-        if(game.duck.position.y < 0)
-            game.duck.position.y = 0;
-*/
         for(int i = 0; i < PIPE_NUMBER; i++) {
             if(count % 2 == 0) {
-            //if(game.pipeline[i].upper.position.x < -100 || game.pipeline[i].lower.position.x < -100)
-            //    Pipeline_respawn(game.pipeline[i]);
                 Pipeline_move(&game.pipeline[i]);
+                Game_manage_collissions(&game.duck, &game.pipeline[i]);
             }
         }
         
@@ -101,8 +81,14 @@ void Game_main_loop(Game game) {
 //void optionsMenu();
 //void runGame();
 
-void Game_manage_collissions(Game game) {
-
+void Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
+    bool collission;
+    if((duck->position.y < pipeline->center - 200/2 // 200 := (SEPARATION_Y) 
+    || (duck->position.y + duck->position.h) > pipeline->center + 200/2)
+    && (duck->position.x + duck->position.w) > pipeline->upper.position.x) {
+        collission = true;
+        printf("collision!\n");
+    }
 }
 
 void Game_delete(Game game) {
