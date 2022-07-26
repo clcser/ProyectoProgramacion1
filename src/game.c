@@ -5,7 +5,7 @@
 #include "background.h"
 #include "context.h"
 
-int running = 1, count = 0;
+int running = 1, count = 0, jump = 0;
 
 Game Game_new() {
     Game game;
@@ -51,13 +51,15 @@ void Game_main_loop(Game game) {
                             break;
                         case SDLK_SPACE:
                             if(event.key.repeat == 0) {
-                                if(game.duck.position.y-50 < 0){
+                                jump = 1;
+                                //Duck_move(&game.duck);
+                                /*if(game.duck.position.y -50 < 0) {
                                     game.duck.position.y = 0;
-                                }
-                                else{
+                                }   
+                                else {
                                     game.duck.position.y -= 60;
                                     game.duck.vel = -0.6;
-                                }
+                                }*/
                             }
                             break;
                         default:
@@ -68,19 +70,21 @@ void Game_main_loop(Game game) {
 
         // actualizar variables
         count ++;
-        if(game.duck.position.y < 660 && count%4==0) {  //para que no se mueva constantemente
+        /*if(game.duck.position.y < 660 && count%4==0) {  //para que no se mueva constantemente
             game.duck.position.y += game.duck.vel;
             game.duck.vel += 0.11;
-        }
+        }*/
 
         if(count % 4 == 0) {
+            Duck_move(&game.duck, &jump, count);
+            //jump = 0;
             //game.pipeline->upper.position.x--;
             //game.pipeline->lower.position.x--;
         }
-
+/*
         if(game.duck.position.y < 0)
             game.duck.position.y = 0;
-
+*/
         for(int i = 0; i < PIPE_NUMBER; i++) {
             if(count % 2 == 0) {
             //if(game.pipeline[i].upper.position.x < -100 || game.pipeline[i].lower.position.x < -100)

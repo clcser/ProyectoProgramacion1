@@ -5,12 +5,12 @@
 #include <SDL2/SDL_image.h>
 
 #define SCALE 2
-#define SEPARATION 120
+#define SEPARATION 120 //cambiar nombre a SEPARATION_Y
 
-static SDL_Surface *pipeline_upper_surface = NULL;
+static SDL_Surface *pipeline_upper_surface = NULL; 
 static SDL_Surface *pipeline_lower_surface = NULL;
 
-Pipeline Pipeline_new(int separacion) { // hay que arreglar los numeros en esta funcion
+Pipeline Pipeline_new(int separacion) { // cambiar nombre a separation_x
     Pipeline pipeline;
 
     pipeline.center = rand() % 400 + 200; // centro de las tuberias (al azar)
