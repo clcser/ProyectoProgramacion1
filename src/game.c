@@ -83,11 +83,13 @@ void Game_main_loop(Game game) {
 
 void Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
     bool collission;
-    if((duck->position.y < pipeline->center - 200/2 // 200 := (SEPARATION_Y) 
-    || (duck->position.y + duck->position.h) > pipeline->center + 200/2)
-    && (duck->position.x + duck->position.w) > pipeline->upper.position.x) {
-        collission = true;
-        printf("collision!\n");
+    if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
+    && duck->position.x + duck->position.w > pipeline->upper.position.x) {
+        if(duck->position.y < pipeline->center - 200/2 // 200 := (SEPARATION_Y) 
+        || duck->position.y + duck->position.h > pipeline->center + 200/2) {
+            collission = true;
+            printf("collision!\n");
+        }
     }
 }
 
