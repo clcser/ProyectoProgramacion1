@@ -17,7 +17,7 @@ typedef struct {
 
 Game Game_new();
 
-void Game_draw(Game game);
+void Game_draw(Game game, int costume);
 
 void Game_main_loop(Game game);
 

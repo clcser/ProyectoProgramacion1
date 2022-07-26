@@ -19,7 +19,7 @@ Game Game_new() {
     return game;
 }
 
-void Game_draw(Game game) {
+void Game_draw(Game game, int costume) {
     SDL_FillRect(game.screen_surface, NULL, SDL_MapRGB(game.screen_surface->format, 255, 255, 255));
     SDL_BlitSurface(game.background[0].image, NULL, game.screen_surface, NULL);
     SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, NULL);    
@@ -29,20 +29,25 @@ void Game_draw(Game game) {
         SDL_BlitScaled(game.pipeline[i].upper.image, NULL, game.screen_surface, &dest);
         SDL_BlitScaled(game.pipeline[i].lower.image, NULL, game.screen_surface, &game.pipeline[i].lower.position);
     }    
-    SDL_BlitScaled(game.duck.image, NULL, game.screen_surface, &game.duck.position);
+    SDL_BlitScaled(game.duck.image[costume], NULL, game.screen_surface, &game.duck.position);
     SDL_UpdateWindowSurface(window);
 }
 
 void Game_main_loop(Game game) {
     SDL_Event event;
+    int costume = 0;
 
     while (running) {
+        
         // obtener input
         while (SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_QUIT:
                     running = 0;
                     break;
+                case SDL_KEYUP:
+                    costume = 0;
+                    break;             
                 case SDL_KEYDOWN:
                     switch(event.key.keysym.sym) {
                         case SDLK_ESCAPE:
@@ -50,7 +55,8 @@ void Game_main_loop(Game game) {
                             running = 0;
                             break;
                         case SDLK_SPACE:
-                            if(event.key.repeat == 0) {
+                            costume = 1;
+                            if(event.key.repeat == 0) {                           
                                 if(game.duck.position.y-50 < 0){
                                     game.duck.position.y = 0;
                                 }
@@ -62,7 +68,9 @@ void Game_main_loop(Game game) {
                             break;
                         default:
                             break;
-                    }
+                    } 
+                default:
+                    break;  
             }
         }
 
@@ -90,7 +98,7 @@ void Game_main_loop(Game game) {
         }
         
         // dibujar
-        Game_draw(game);
+        Game_draw(game, costume);
     }
 }
 
@@ -105,7 +113,8 @@ void Game_delete(Game game) {
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     SDL_FreeSurface(game.background->image);
-    SDL_FreeSurface(game.duck.image);
+    SDL_FreeSurface(game.duck.image[0]);
+    SDL_FreeSurface(game.duck.image[1]);
     SDL_FreeSurface(game.screen_surface);
 
 }

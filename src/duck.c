@@ -4,7 +4,8 @@
 Duck Duck_new() { //hacer que tenga de parametro una imagen
     Duck duck;
     
-    duck.image = IMG_Load("../assets/duck.png");
+    duck.image[0] = IMG_Load("../assets/duck1.png");
+    duck.image[1] = IMG_Load("../assets/duck2.png");
     
     duck.position.x = 40;
     duck.position.y = 100;

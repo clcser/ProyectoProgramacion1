@@ -31,7 +31,7 @@ int Context_init() {
                               WINDOW_WIDTH, 
                               WINDOW_HEIGHT, 
                               0);
-    
+
     if (window == NULL) { // handle error
         printf("Error al crear la ventana\n");
         SDL_Quit();
