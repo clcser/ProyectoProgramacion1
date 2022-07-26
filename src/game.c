@@ -85,8 +85,8 @@ void Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
     bool collission;
     if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
     && duck->position.x + duck->position.w > pipeline->upper.position.x) {
-        if(duck->position.y < pipeline->center - 200/2 // 200 := (SEPARATION_Y) 
-        || duck->position.y + duck->position.h > pipeline->center + 200/2) {
+        if(duck->position.y < pipeline->center - separation_y/2 
+        || duck->position.y + duck->position.h > pipeline->center + separation_y/2) {
             collission = true;
             printf("collision!\n");
         }

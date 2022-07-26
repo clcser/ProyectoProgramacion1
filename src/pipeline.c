@@ -5,7 +5,8 @@
 #include <SDL2/SDL_image.h>
 
 #define SCALE 2
-#define SEPARATION_Y 200
+
+int separation_y = 150;
 
 static SDL_Surface *pipeline_upper_surface = NULL;
 static SDL_Surface *pipeline_lower_surface = NULL;
@@ -22,7 +23,7 @@ Pipeline Pipeline_new(int separation_x) {
 
     pipeline.upper.position.h = pipeline_upper_surface->h * 4;
     pipeline.upper.position.w = pipeline_upper_surface->w * 4;     
-    pipeline.upper.position.y = pipeline.center - SEPARATION_Y / 2 - 548; // 548 := medida de la tuberia (87*4) + 200 de margen del rand
+    pipeline.upper.position.y = pipeline.center - separation_y / 2 - 548; // 548 := medida de la tuberia (87*4) + 200 de margen del rand
     pipeline.upper.position.x = WINDOW_WIDTH + 270*separation_x; 
    
 
@@ -33,7 +34,7 @@ Pipeline Pipeline_new(int separation_x) {
 
     pipeline.lower.position.h = pipeline_lower_surface->h * 4;
     pipeline.lower.position.w = pipeline_lower_surface->w * 4;     
-    pipeline.lower.position.y = pipeline.center + SEPARATION_Y / 2;
+    pipeline.lower.position.y = pipeline.center + separation_y / 2;
     pipeline.lower.position.x = WINDOW_WIDTH + 270*separation_x;
 
     return pipeline;
@@ -51,19 +52,7 @@ void Pipeline_move(Pipeline *pipeline) {
 void Pipeline_respawn(Pipeline *pipeline) {
     pipeline->center = rand() % 400 + 200;
     pipeline->upper.position.x = pipeline->lower.position.x = WINDOW_WIDTH;
-    pipeline->upper.position.y = pipeline->center - SEPARATION_Y / 2 - 548; // medida de la tuberia (87 * 4) + 200 de margen del rand
-    pipeline->lower.position.y = pipeline->center + SEPARATION_Y / 2;
-}
-/*
-bool colision(SDL_Rect *pato, struct tubo *tubo) {
-    if(pato->y < tubo->center-120 || (pato->y + pato->h) > tubo->center+120)
-        return 1;
-    return 0;
+    pipeline->upper.position.y = pipeline->center - separation_y / 2 - 548; // medida de la tuberia (87 * 4) + 200 de margen del rand
+    pipeline->lower.position.y = pipeline->center + separation_y / 2;
 }
 
-funcion(SDL_Rect *rect, int d)
-    rect->h = rand() % 680 + 20;
-    rect->y = 0;
-    rect->x = 100 + 50*d;
-    rect->w = 100;
-*/

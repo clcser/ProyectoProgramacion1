@@ -5,8 +5,7 @@
 #include "pipeline.h"
 #include "background.h"
 
-extern int running,count;
-
+extern int running,count,separation_y;
 
 typedef struct {
     Duck duck;
