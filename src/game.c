@@ -12,7 +12,7 @@ Game Game_new() {
     game.screen_surface = SDL_GetWindowSurface(window);
     game.duck = Duck_new();
     game.background[0] = Background_new();
-    game.background[1] = Background_new();
+    // game.background[1] = Background_new();
     for(int i = 0; i < PIPE_NUMBER; i++) {
         game.pipeline[i] = Pipeline_new(i);    
     }
@@ -21,8 +21,8 @@ Game Game_new() {
 
 void Game_draw(Game game, int costume) {
     SDL_FillRect(game.screen_surface, NULL, SDL_MapRGB(game.screen_surface->format, 255, 255, 255));
-    SDL_BlitSurface(game.background[0].image, NULL, game.screen_surface, NULL);
-    SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, NULL);    
+    SDL_BlitSurface(game.background[0].image, &game.background[0].position, game.screen_surface, NULL);
+    // SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, &game.background[1].position);    
     for(int i = 0; i < PIPE_NUMBER; i++) {
         SDL_Rect dest = game.pipeline[i].upper.position;
         dest.y -= game.pipeline[i].upper.image->h;
@@ -55,15 +55,12 @@ void Game_main_loop(Game game) {
                             running = 0;
                             break;
                         case SDLK_SPACE:
-                            costume = 1;
                             if(event.key.repeat == 0)
                                 jump = 1;
                             break;
                         default:
                             break;
-                    } 
-                // default:
-                   // break;  
+                    }
             }
         }
 
@@ -71,13 +68,17 @@ void Game_main_loop(Game game) {
         count ++;
 
         if(count % 4 == 0) {
-            Duck_move(&game.duck, &jump, count);
+            Duck_move(&game.duck, &jump, count, &costume);
         }
         for(int i = 0; i < PIPE_NUMBER; i++) {
             if(count % 2 == 0) {
                 Pipeline_move(&game.pipeline[i]);
                 Game_manage_collissions(&game.duck, &game.pipeline[i]);
             }
+        }
+
+        if(count % 15 == 0){
+            Background_move(&game.background[0]);
         }
         
         // dibujar
