@@ -107,7 +107,7 @@ void Game_delete(Game game) {
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     SDL_FreeSurface(game.background->image);
-    for(int i=0; i<10; ++i){
+    for(int i=0; i<8; ++i){
         SDL_FreeSurface(game.duck.image[i]);
     }
     SDL_FreeSurface(game.screen_surface);
