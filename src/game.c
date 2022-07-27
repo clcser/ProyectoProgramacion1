@@ -56,6 +56,7 @@ void Game_main_loop(Game game) {
                             running = 0;
                             break;
                         case SDLK_SPACE:
+                            costume++;
                             if(event.key.repeat == 0)
                                 jump = 1;
                             break;
@@ -106,8 +107,11 @@ void Game_delete(Game game) {
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     SDL_FreeSurface(game.background->image);
-    SDL_FreeSurface(game.duck.image[0]);
-    SDL_FreeSurface(game.duck.image[1]);
+    // SDL_FreeSurface(game.duck.image[0]);
+    // SDL_FreeSurface(game.duck.image[1]);
+    for(int i=0; i<6; ++i){
+        SDL_FreeSurface(game.duck.image[i]);
+    }
     SDL_FreeSurface(game.screen_surface);
 
 }

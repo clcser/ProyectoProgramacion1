@@ -11,6 +11,6 @@ typedef struct {
 } Duck;
 
 Duck Duck_new();
-void Duck_move();
+void Duck_move(Duck *duck, int *jump, int count, int *costume);
 
 #endif //DUCK_H
