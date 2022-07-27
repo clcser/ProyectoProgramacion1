@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 typedef struct {
-    SDL_Surface *image[2];
+    SDL_Surface *image[6];
     SDL_Rect position;
     float vel;
     float jumpForce;

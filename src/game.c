@@ -35,7 +35,8 @@ void Game_draw(Game game, int costume) {
 
 void Game_main_loop(Game game) {
     SDL_Event event;
-    int costume = 0;
+    int costume = (rand()%3)*2;
+    int default_costume = costume;
 
     while (running) {
         
@@ -46,7 +47,7 @@ void Game_main_loop(Game game) {
                     running = 0;
                     break;
                 case SDL_KEYUP:
-                    costume = 0;
+                    costume = default_costume;
                     break;             
                 case SDL_KEYDOWN:
                     switch(event.key.keysym.sym) {
@@ -77,7 +78,7 @@ void Game_main_loop(Game game) {
             }
         }
 
-        if(count % 15 == 0){
+        if(count % 10 == 0){
             Background_move(&game.background[0]);
         }
         
