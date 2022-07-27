@@ -56,18 +56,8 @@ void Game_main_loop(Game game) {
                             break;
                         case SDLK_SPACE:
                             costume = 1;
-                            if(event.key.repeat == 0) {                           
-                                if(game.duck.position.y-50 < 0){
-                                    game.duck.position.y = 0;
-                                }
-                                else{
-                                    game.duck.position.y -= 60;
-                                    game.duck.vel = -0.6;
-                                }
-                            }    
-                            if(event.key.repeat == 0) {
+                            if(event.key.repeat == 0)
                                 jump = 1;
-                            }
                             break;
                         default:
                             break;
