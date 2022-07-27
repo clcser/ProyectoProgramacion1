@@ -15,11 +15,12 @@ Duck Duck_new() { // hacer que tenga de parametro una imagen(?
     return duck;
 }
 
-void Duck_move(Duck *duck, int *jump, int count) {
+void Duck_move(Duck *duck, int *jump, int count, int *costume) {
     if(*jump) { // salto
+        *costume = 1;
         printf("jump!\n");
-            for(float i = 0; i < 1; i += 0.01) {
-                duck->vel = -3*i;
+        for(float i = 0; i < 1; i += 0.01) {
+            duck->vel = -3*i;
         }
         *jump = 0;
     }
@@ -30,11 +31,11 @@ void Duck_move(Duck *duck, int *jump, int count) {
     }
     else { // para que caiga
         duck->position.y += duck->vel;
-        duck->vel += 0.11;
+        duck->vel += 0.08;
     }
 
     if(duck->position.y < 0) { // si se pasa por arriba
         duck->position.y = 0;
-        duck->vel = 0.11;
+        duck->vel = 0.08;
     }
 }
