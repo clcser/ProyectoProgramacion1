@@ -10,6 +10,10 @@ Duck Duck_new() { // hacer que tenga de parametro una imagen(?
     duck.image[3] = IMG_Load("../assets/blue_duck2.png");
     duck.image[4] = IMG_Load("../assets/purple_duck1.png");
     duck.image[5] = IMG_Load("../assets/purple_duck2.png");
+    duck.image[6] = IMG_Load("../assets/gray_duck1.png");
+    duck.image[7] = IMG_Load("../assets/gray_duck2.png");
+    duck.image[8] = IMG_Load("../assets/red_duck1.png");
+    duck.image[9] = IMG_Load("../assets/red_duck2.png");
     
     duck.position.x = 60;
     duck.position.y = 300;
@@ -19,9 +23,8 @@ Duck Duck_new() { // hacer que tenga de parametro una imagen(?
     return duck;
 }
 
-void Duck_move(Duck *duck, int *jump, int count, int *costume) {
+void Duck_move(Duck *duck, int *jump, int count) {
     if(*jump) { // salto
-        // *costume ++;
         printf("jump!\n");
         for(float i = 0; i < 1; i += 0.01) {
             duck->vel = -3*i;

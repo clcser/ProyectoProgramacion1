@@ -35,7 +35,7 @@ void Game_draw(Game game, int costume) {
 
 void Game_main_loop(Game game) {
     SDL_Event event;
-    int costume = (rand()%3)*2;
+    int costume = (rand()%5)*2;
     int default_costume = costume;
 
     while (running) {
@@ -70,7 +70,7 @@ void Game_main_loop(Game game) {
         count ++;
 
         if(count % 4 == 0) {
-            Duck_move(&game.duck, &jump, count, &costume);
+            Duck_move(&game.duck, &jump, count);
         }
         for(int i = 0; i < PIPE_NUMBER; i++) {
             if(count % 2 == 0) {
@@ -107,9 +107,7 @@ void Game_delete(Game game) {
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     SDL_FreeSurface(game.background->image);
-    // SDL_FreeSurface(game.duck.image[0]);
-    // SDL_FreeSurface(game.duck.image[1]);
-    for(int i=0; i<6; ++i){
+    for(int i=0; i<10; ++i){
         SDL_FreeSurface(game.duck.image[i]);
     }
     SDL_FreeSurface(game.screen_surface);

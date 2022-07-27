@@ -4,13 +4,13 @@
 #include <SDL2/SDL.h>
 
 typedef struct {
-    SDL_Surface *image[6];
+    SDL_Surface *image[10];
     SDL_Rect position;
     float vel;
     float jumpForce;
 } Duck;
 
 Duck Duck_new();
-void Duck_move(Duck *duck, int *jump, int count, int *costume);
+void Duck_move();
 
 #endif //DUCK_H
