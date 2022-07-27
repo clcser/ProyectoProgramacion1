@@ -4,6 +4,7 @@
 #include "duck.h"
 #include "pipeline.h"
 #include "background.h"
+#include "audio.h"
 
 extern int running,count,separation_y;
 
@@ -12,6 +13,7 @@ typedef struct {
     Background background[2];
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
+    Music music;
 } Game;
 
 Game Game_new();
