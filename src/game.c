@@ -7,7 +7,7 @@
 #include "background.h"
 #include "context.h"
 
-#define MS_PER_TICK 5
+#define MS_PER_TICK 10
 
 int running = 1, count = 0, jump = 0;
 
@@ -97,21 +97,16 @@ int Game_update_state(Game *game) {
     }
 
     // actualizar variables
-    //count++;
 
-    if(count % 4 == 0 || 1) {
-        Duck_move(&game->duck, &jump, count);
-    }
+    Duck_move(&game->duck, &jump, count);
+    
     for(int i = 0; i < PIPE_NUMBER; i++) {
-        if(count % 2 == 0 || 1) {
-            Pipeline_move(&game->pipeline[i]);
-            Game_manage_collissions(&game->duck, &game->pipeline[i]);
-        }
+        Pipeline_move(&game->pipeline[i]);
+        Game_manage_collissions(&game->duck, &game->pipeline[i]);
     }
 
-    if(count % 10 == 0 || 1){
-        Background_move(&game->background[0]);
-    }
+    Background_move(&game->background[0]);
+
     //printf("%d\n", count);
     last_tick = SDL_GetTicks();
     return running;
