@@ -3,8 +3,8 @@
 
 #include <SDL2/SDL.h>
 
-#define WINDOW_WIDTH 720
-#define WINDOW_HEIGHT 720
+#define WINDOW_WIDTH 768
+#define WINDOW_HEIGHT 768
 
 extern SDL_Window *window;
 

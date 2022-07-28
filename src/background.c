@@ -10,8 +10,8 @@ Background Background_new() {
     background.image = background_surface;
     background.position.x = 0;
     background.position.y = 0;
-    background.position.w = 720;
-    background.position.h = 720;
+    background.position.w = 768;
+    background.position.h = 768;
 
     return background;
 }
@@ -19,7 +19,7 @@ Background Background_new() {
 void Background_move(Background *bg) {
     bg->position.x++;
 
-    if (bg->position.x > 2160) {
+    if (bg->position.x > 2304) {
         bg->position.x = 0;
     }
 }
