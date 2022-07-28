@@ -23,3 +23,4 @@ void Background_move(Background *bg) {
         bg->position.x = 0;
     }
 }
+
