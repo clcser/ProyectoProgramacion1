@@ -7,7 +7,7 @@
 #include "background.h"
 #include "context.h"
 
-#define MS_PER_TICK 1
+#define MS_PER_TICK 5
 
 int running = 1, count = 0, jump = 0;
 
@@ -27,6 +27,7 @@ Game Game_new() {
 }
 
 void Game_draw(Game game, int costume) {
+    printf("DRAW_S: %d\n", SDL_GetTicks());
     SDL_FillRect(game.screen_surface, NULL, SDL_MapRGB(game.screen_surface->format, 255, 255, 255));
     SDL_BlitSurface(game.background[0].image, &game.background[0].position, game.screen_surface, NULL);
     // SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, &game.background[1].position);    
@@ -38,6 +39,7 @@ void Game_draw(Game game, int costume) {
     }
     SDL_BlitScaled(game.duck.image[costume], NULL, game.screen_surface, &game.duck.position);
     SDL_UpdateWindowSurface(window);
+    printf("DRAW_E: %d\n", SDL_GetTicks());
 }
 
 int Game_update_state(Game *game) {
