@@ -6,7 +6,7 @@
 #include "background.h"
 #include "context.h"
 
-#define MS_PER_TICK 10
+#define MS_PER_TICK 1
 
 int running = 1, count = 0, jump = 0;
 
