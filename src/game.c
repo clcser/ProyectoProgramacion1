@@ -76,6 +76,9 @@ void Game_main_loop(Game game) {
                             break;
                         case SDLK_SPACE:
                             costume++;
+                            if(costume>=9){
+                            	costume = 0;
+                            }
                             if(event.key.repeat == 0)
                                 jump = 1;
                             break;
