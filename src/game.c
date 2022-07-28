@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "game.h"
 #include "duck.h"
+#include "audio.h"
 #include "pipeline.h"
 #include "background.h"
 #include "context.h"
@@ -17,6 +18,7 @@ Game Game_new() {
     game.screen_surface = SDL_GetWindowSurface(window);
     game.duck = Duck_new();
     game.background[0] = Background_new();
+    game.music = Music_new();
     for(int i = 0; i < PIPE_NUMBER; i++) {
         game.pipeline[i] = Pipeline_new(i);    
     }
@@ -46,9 +48,8 @@ int Game_update_state(Game *game) {
     SDL_Event event;
     int costume = (rand()%5)*2;
     int default_costume = costume;
-    //uint32_t ticks_start = SDL_GetTicks();
-    // obtener input
-    while (SDL_PollEvent(&event)) {
+
+     while (SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_QUIT:
                 running = 0;
@@ -58,12 +59,32 @@ int Game_update_state(Game *game) {
                 break;             
             case SDL_KEYDOWN:
                 switch(event.key.keysym.sym) {
+                    case SDLK_m:
+                	 	if(!Mix_PlayingMusic()){
+                    	 	Mix_PlayMusic(game->music.audio, -1);
+                    		
+                     	}else if(Mix_PausedMusic()){
+                	 		Mix_ResumeMusic();
+                	 	
+                	 	}else{
+                	 		Mix_PausedMusic();	
+                    	 	
+                	 	}
+                        break;
+
+                    case SDLK_s:
+                        Mix_HaltMusic();
+                        break;
+                    
                     case SDLK_ESCAPE:
                     case SDLK_q:
                         running = 0;
                         break;
                     case SDLK_SPACE:
                         costume++;
+                        if(costume>=9){
+                        	costume = 0;
+                        }
                         if(event.key.repeat == 0)
                             jump = 1;
                         break;
@@ -110,6 +131,7 @@ void Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
 }
 
 void Game_delete(Game game) {
+    quit_Audio(game);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     SDL_FreeSurface(game.background->image);

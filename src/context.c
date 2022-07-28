@@ -1,6 +1,7 @@
 // funciones relacionadas al contexto de SDL
 
 #include "context.h"
+#include "audio.h"
 #include <time.h>
 #include <stdio.h>
 #include <SDL2/SDL_ttf.h>
@@ -14,6 +15,13 @@ int Context_init() {
     srand(time(0)); // cambiar semilla
     const unsigned char* key;
 	key = SDL_GetKeyboardState(NULL);
+	
+     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) == -1 )
+     {
+        printf( "Error al inicializar SDL_mixer\n");
+        return EXIT_FAILURE;
+     }
+
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) { // inicia SDL
         printf("Error al inicializar SDL\n");
