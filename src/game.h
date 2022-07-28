@@ -18,7 +18,7 @@ Game Game_new();
 
 void Game_draw(Game game, int costume);
 
-void Game_main_loop(Game game);
+int Game_update_state   (Game *game);
 
 void Game_manage_collissions(Duck *duck, Pipeline *pipeline);
 
