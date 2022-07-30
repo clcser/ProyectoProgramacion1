@@ -25,7 +25,7 @@ void Duck_move(Duck *duck, int *jump, int count) {
     if(*jump) { // salto
         printf("jump!\n");
         for(float i = 0; i < 1; i += 0.01) {
-            duck->vel = -3*i;
+            duck->vel = -6*i;
         }
         *jump = 0;
     }
@@ -36,11 +36,11 @@ void Duck_move(Duck *duck, int *jump, int count) {
     }
     else { // para que caiga
         duck->position.y += duck->vel;
-        duck->vel += 0.08;
+        duck->vel += 0.3;
     }
 
     if(duck->position.y < 0) { // si se pasa por arriba
         duck->position.y = 0;
-        duck->vel = 0.08;
+        duck->vel = 0.3;
     }
 }
