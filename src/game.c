@@ -22,7 +22,7 @@ Game Game_new() {
     game.duck = Duck_new();
     game.costume = (rand()%4)*2;
     game.background = Background_new();
-    game.scenery = (rand()%2);
+    game.scenery = (rand()%3);
     game.music = Music_new();
     for(int i = 0; i < PIPE_NUMBER; i++) {
         game.pipeline[i] = Pipeline_new(i);    
@@ -135,7 +135,9 @@ void Game_delete(Game game) {
     quit_Audio(game);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
-    SDL_FreeSurface(game.background.image[1]);
+    for(int i=0; i<3; ++i){
+       SDL_FreeSurface(game.background.image[i]); 
+    }
     for(int i=0; i<8; ++i){
         SDL_FreeSurface(game.duck.image[i]);
     }

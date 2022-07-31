@@ -9,6 +9,7 @@ Background Background_new() {
     }*/
     background.image[0] =  IMG_Load("../assets/background1.png");
     background.image[1] =  IMG_Load("../assets/background2.png");
+    background.image[2] =  IMG_Load("../assets/background3.png");
     background.position.x = 0;
     background.position.y = 0;
     background.position.w = 768;
