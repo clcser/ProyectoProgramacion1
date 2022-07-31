@@ -8,12 +8,19 @@
 #include <time.h>
 #include "game.h"
 #include "context.h"
+#include "startmenu.h"
 
 
 int main(int argc, char *argv[]) {
     srand(time(0));
     Context_init();
-    Game game = Game_new(); 
+    Start_menu start_menu = Start_menu_new();
+    
+    while(Start_menu_state(&start_menu)){
+        Start_menu_draw(start_menu, start_menu.frame);   
+    } 
+     
+    Game game = Game_new();
     while(Game_update_state(&game)) 
         Game_draw(game, game.costume, game.scenery);
     Game_delete(game);

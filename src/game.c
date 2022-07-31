@@ -107,7 +107,6 @@ int Game_update_state(Game *game) {
     for(int i = 0; i < PIPE_NUMBER; i++) {
         Pipeline_move(&game->pipeline[i]);
         if(Game_manage_collisions(&game->duck, &game->pipeline[i])){ //collision == 1)
-            printf("MANAGE COLLISION\n");
             running = 0;
         }
     }

@@ -11,6 +11,6 @@ typedef struct {
 
 Background Background_new();
 
-void Background_move();
+void Background_move(Background *bg);
 
 #endif //BACKGROUND_H

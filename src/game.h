@@ -9,11 +9,6 @@
 extern int running,count,separation_y;
 
 typedef struct {
-    SDL_Surface *image;
-    SDL_Rect position;
-} Game_over;
-
-typedef struct {
     Duck duck;
     int costume;
     Background background;
@@ -22,7 +17,6 @@ typedef struct {
     SDL_Surface *screen_surface;
     Music music;
 } Game;
-
 
 Game Game_new();
 
