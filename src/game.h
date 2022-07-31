@@ -9,6 +9,11 @@
 extern int running,count,separation_y;
 
 typedef struct {
+    SDL_Surface *image;
+    SDL_Rect position;
+} Game_over;
+
+typedef struct {
     Duck duck;
     int costume;
     Background background;
@@ -16,15 +21,17 @@ typedef struct {
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
+    Game_over game_over;
 } Game;
+
 
 Game Game_new();
 
 void Game_draw(Game game, int costume, int scenery);
 
-int Game_update_state   (Game *game);
+int Game_update_state(Game *game);
 
-int Game_manage_collissions(Duck *duck, Pipeline *pipeline);
+int Game_manage_collissions(Duck *duck, Pipeline *pipeline, Game_over *game_over);
 
 void Game_delete(Game game);
 

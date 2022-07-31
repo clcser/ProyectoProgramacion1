@@ -106,8 +106,9 @@ int Game_update_state(Game *game) {
     
     for(int i = 0; i < PIPE_NUMBER; i++) {
         Pipeline_move(&game->pipeline[i]);
-        if(Game_manage_collissions(&game->duck, &game->pipeline[i]))//collision == 1)
+        /*if(Game_manage_collissions(&game->duck, &game->pipeline[i], &game->game_over)){ //collision == 1)
             running = 0;
+        }*/
     }
 
     Background_move(&game->background);
@@ -120,7 +121,7 @@ int Game_update_state(Game *game) {
 //void optionsMenu();
 //void runGame();
 
-int Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
+int Game_manage_collissions(Duck *duck, Pipeline *pipeline, Game_over *game_over) {
     if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
     && duck->position.x + duck->position.w > pipeline->upper.position.x) {
         if(duck->position.y < pipeline->center - separation_y/2 
@@ -133,7 +134,7 @@ int Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
 }
 
 void Game_delete(Game game) {
-    quit_Audio(game);
+    quit_Audio(game.music);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     for(int i=0; i<3; ++i){

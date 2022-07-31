@@ -7,7 +7,6 @@
 typedef struct {
     SDL_Surface *image[3];
     SDL_Rect position;
-    float vel;
 } Background;
 
 Background Background_new();
