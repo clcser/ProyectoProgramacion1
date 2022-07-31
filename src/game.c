@@ -75,7 +75,7 @@ int Game_update_state(Game *game) {
                         Mix_HaltMusic();
                         break;
                     
-                    case SDLK_ESCAPE:
+                    // case SDLK_ESCAPE:
                     case SDLK_q:
                         running = 0;
                         break;
@@ -106,14 +106,14 @@ int Game_update_state(Game *game) {
     
     for(int i = 0; i < PIPE_NUMBER; i++) {
         Pipeline_move(&game->pipeline[i]);
-        /*if(Game_manage_collissions(&game->duck, &game->pipeline[i], &game->game_over)){ //collision == 1)
+        if(Game_manage_collisions(&game->duck, &game->pipeline[i])){ //collision == 1)
+            printf("MANAGE COLLISION\n");
             running = 0;
-        }*/
+        }
     }
 
     Background_move(&game->background);
 
-    //printf("%d\n", count);
     last_tick = SDL_GetTicks();
     return running;
 }
@@ -121,7 +121,7 @@ int Game_update_state(Game *game) {
 //void optionsMenu();
 //void runGame();
 
-int Game_manage_collissions(Duck *duck, Pipeline *pipeline, Game_over *game_over) {
+int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
     if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
     && duck->position.x + duck->position.w > pipeline->upper.position.x) {
         if(duck->position.y < pipeline->center - separation_y/2 
@@ -134,7 +134,7 @@ int Game_manage_collissions(Duck *duck, Pipeline *pipeline, Game_over *game_over
 }
 
 void Game_delete(Game game) {
-    quit_Audio(game.music);
+    quit_Audio(game.music.audio);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     for(int i=0; i<3; ++i){

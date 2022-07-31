@@ -9,12 +9,9 @@ Music Music_new(){
 	music.audio = Mix_LoadMUS("../audio/inGame.mp3");
 }
 
-void quit_Audio(Game *game)
-{
+void quit_Audio(Game *game){
 	Mix_FreeMusic(game->music.audio);	//liberamos la musica
 	game->music.audio = NULL;
 	
 	Mix_Quit();	//Cerrar la musica
-
 }
-

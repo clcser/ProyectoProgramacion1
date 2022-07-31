@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     Game game = Game_new();  
     while(Game_update_state(&game)) 
         Game_draw(game, game.costume, game.scenery);
-    Game_delete(game);
+    //Game_delete(game);
     Context_quit();
     return 0;
 }

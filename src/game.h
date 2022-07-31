@@ -21,7 +21,6 @@ typedef struct {
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
-    Game_over game_over;
 } Game;
 
 
@@ -31,7 +30,7 @@ void Game_draw(Game game, int costume, int scenery);
 
 int Game_update_state(Game *game);
 
-int Game_manage_collissions(Duck *duck, Pipeline *pipeline, Game_over *game_over);
+int Game_manage_collisions(Duck *duck, Pipeline *pipeline);
 
 void Game_delete(Game game);
 
