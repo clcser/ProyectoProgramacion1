@@ -1,4 +1,3 @@
-
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
@@ -13,13 +12,5 @@ typedef struct {
 Background Background_new();
 
 void Background_move();
-
-typedef struct {
-    SDL_Surface *lose_menu;
-    SDL_Rect position;
-
-}Menu;
-
-Menu Menu_fail();
 
 #endif //BACKGROUND_H

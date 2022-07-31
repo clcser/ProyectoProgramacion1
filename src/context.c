@@ -1,3 +1,4 @@
+
 // funciones relacionadas al contexto de SDL
 
 #include "context.h"
@@ -58,5 +59,3 @@ void Context_quit() {
 void print_text(const char *text, SDL_Rect rect, float scale, SDL_Color color) {
 
 }
-
-

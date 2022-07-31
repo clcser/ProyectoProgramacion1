@@ -5,27 +5,37 @@
 #include "pipeline.h"
 #include "background.h"
 #include "audio.h"
+#include "menu.h"
 
 extern int running,count,separation_y;
 
 typedef struct {
+    SDL_Surface *image;
+    SDL_Rect position;
+} Game_over;
+
+typedef struct {
     Duck duck;
     int costume;
-    int timer;
-    Background background[2];
+    Background background;
+    int scenery;
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
     Menu menu[1];
+    SDL_Surface *lose_menu;
 } Game;
+
 
 Game Game_new();
 
-void Game_draw(Game game, int costume);
+void Game_draw(Game game, int costume, int scenery);
 
-int Game_update_state (Game *game);
+int Game_update_state(Game *game);
 
-int Game_manage_collissions(Duck *duck, Pipeline *pipeline);
+int Game_manage_collisions(Duck *duck, Pipeline *pipeline);
+
+int Game_Lose(bool collision);
 
 void Game_delete(Game game);
 

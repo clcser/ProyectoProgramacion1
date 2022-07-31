@@ -25,7 +25,6 @@ Pipeline Pipeline_new(int separation_x) {
     pipeline.upper.position.w = pipeline_upper_surface->w * 4;     
     pipeline.upper.position.y = pipeline.center - separation_y / 2 - 548; // 548 := medida de la tuberia (87*4) + 200 de margen del rand
     pipeline.upper.position.x = WINDOW_WIDTH + 270*separation_x; 
-   
 
     if (pipeline_lower_surface == NULL) {
         pipeline_lower_surface = IMG_Load("../assets/pipelinelow.png");
@@ -41,8 +40,8 @@ Pipeline Pipeline_new(int separation_x) {
 }
 
 void Pipeline_move(Pipeline *pipeline) {
-    pipeline->upper.position.x--;
-    pipeline->lower.position.x--;
+    pipeline->upper.position.x -= 3;
+    pipeline->lower.position.x -= 3;
     //pipeline->center--;
 
     if (pipeline->upper.position.x < -100) {
@@ -55,4 +54,3 @@ void Pipeline_respawn(Pipeline *pipeline) {
     pipeline->upper.position.y = pipeline->center - separation_y / 2 - 548; // medida de la tuberia (87 * 4) + 200 de margen del rand
     pipeline->lower.position.y = pipeline->center + separation_y / 2;
 }
-

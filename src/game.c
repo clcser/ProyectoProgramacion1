@@ -6,6 +6,7 @@
 #include "pipeline.h"
 #include "background.h"
 #include "context.h"
+#include "menu.h"
 
 #define MS_PER_TICK 10
 
@@ -21,44 +22,36 @@ Game Game_new() {
     game.screen_surface = SDL_GetWindowSurface(window);
     game.duck = Duck_new();
     game.costume = (rand()%4)*2;
-    game.background[0] = Background_new();
+    game.background = Background_new();
+    game.scenery = (rand()%3);
     game.music = Music_new();
     game.menu[0]= Menu_fail(); 
     for(int i = 0; i < PIPE_NUMBER; i++) {
-        game.pipeline[i] = Pipeline_new(i);  
+        game.pipeline[i] = Pipeline_new(i);    
     }
     last_tick = SDL_GetTicks();
     return game;
 }
-    bool collision;
-int Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
-    if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
-    && duck->position.x + duck->position.w > pipeline->upper.position.x) {
-        if(duck->position.y < pipeline->center - separation_y/2 
-        || duck->position.y + duck->position.h > pipeline->center + separation_y/2) {
-             collision=true;
-   	     return 1;
-        }
-    }
-}
 
-void Game_draw(Game game, int costume) {
-    printf("DRAW_S: %d\n", SDL_GetTicks());
+bool collision;
+
+void Game_draw(Game game, int costume, int scenery) {
     SDL_FillRect(game.screen_surface, NULL, SDL_MapRGB(game.screen_surface->format, 255, 255, 255));
-    SDL_BlitSurface(game.background[0].image, &game.background[0].position, game.screen_surface, NULL);
-    
-    // SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, &game.background[1].position);    
+    SDL_BlitSurface(game.background.image[scenery], &game.background.position, game.screen_surface, NULL);   
     for(int i = 0; i < PIPE_NUMBER; i++) {
         SDL_Rect dest = game.pipeline[i].upper.position;
         dest.y -= game.pipeline[i].upper.image->h;
         SDL_BlitScaled(game.pipeline[i].upper.image, NULL, game.screen_surface, &dest);
         SDL_BlitScaled(game.pipeline[i].lower.image, NULL, game.screen_surface, &game.pipeline[i].lower.position);
     }
-    SDL_BlitScaled(game.duck.image[costume], NULL, game.screen_surface, &game.duck.position);
-        if(collision==true){
-    SDL_BlitSurface(game.menu[0].lose_menu, &game.menu[0].position, game.screen_surface, NULL);
-    running=0;}
-    
+    SDL_BlitScaled(game.duck.image[costume], NULL, game.screen_surface, &game.duck.position); 
+     if(collision==true){	
+     SDL_BlitSurface(game.menu[0].lose_menu,
+     		     &game.menu[0].position, 
+   		      game.screen_surface, NULL);
+     
+    running=0;
+    }
     SDL_UpdateWindowSurface(window);
 }
 
@@ -93,7 +86,7 @@ int Game_update_state(Game *game) {
                         Mix_HaltMusic();
                         break;
                     
-                    case SDLK_ESCAPE:
+                    // case SDLK_ESCAPE:
                     case SDLK_q:
                         running = 0;
                         break;
@@ -120,17 +113,16 @@ int Game_update_state(Game *game) {
         lastTime = currentTime;
     }
 
-
     Duck_move(&game->duck, &jump, count);
     
     for(int i = 0; i < PIPE_NUMBER; i++) {
         Pipeline_move(&game->pipeline[i]);
-        Game_manage_collissions(&game->duck, &game->pipeline[i]);
+        Game_manage_collisions(&game->duck, &game->pipeline[i]);
+
     }
 
-    Background_move(&game->background[0]);
+    Background_move(&game->background);
 
-    //printf("%d\n", count);
     last_tick = SDL_GetTicks();
     return running;
 }
@@ -138,17 +130,36 @@ int Game_update_state(Game *game) {
 //void optionsMenu();
 //void runGame();
 
+int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
+    if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
+    && duck->position.x + duck->position.w > pipeline->upper.position.x) {
+        if(duck->position.y < pipeline->center - separation_y/2 
+        || duck->position.y + duck->position.h > pipeline->center + separation_y/2) {
+            printf("collision!\n");
+            collision=true;
+            return 1;
+        }
+    }
+    return 0;
+}
 
+int Game_Lose(bool collision){
+	bool game_lose;
+	if(collision==true){	
+	
+	}
+	return game_lose;
+}
 
 void Game_delete(Game game) {
     quit_Audio(game.music);
-    SDL_FreeSurface(game.menu->lose_menu);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
-    SDL_FreeSurface(game.background->image);
+    for(int i=0; i<3; ++i){
+       SDL_FreeSurface(game.background.image[i]); 
+    }
     for(int i=0; i<8; ++i){
         SDL_FreeSurface(game.duck.image[i]);
     }
     SDL_FreeSurface(game.screen_surface);
-
 }

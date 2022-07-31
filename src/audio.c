@@ -7,19 +7,11 @@
 Music Music_new(){
 	Music music;
 	music.audio = Mix_LoadMUS("../audio/inGame.mp3");
-//	music.effect = Mix_LoadWAV("../audio/collision.wav");
+	return music;
 }
 
-
-
-void quit_Audio(Game *game)
-{
-	Mix_FreeMusic(game->music.audio);	//liberamos la musica
-//	Mix_FreeChunk(game->music.effect);
-	game->music.audio = NULL;
-//	game->music.effect = NULL;
-	
+void quit_Audio(Music music){
+	Mix_FreeMusic(music.audio);	//liberamos la musica
+	music.audio = NULL;
 	Mix_Quit();	//Cerrar la musica
-
 }
-
