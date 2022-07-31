@@ -13,10 +13,10 @@
 int main(int argc, char *argv[]) {
     srand(time(0));
     Context_init();
-    Game game = Game_new();  
+    Game game = Game_new(); 
     while(Game_update_state(&game)) 
         Game_draw(game, game.costume, game.scenery);
-    //Game_delete(game);
+    Game_delete(game);
     Context_quit();
     return 0;
 }

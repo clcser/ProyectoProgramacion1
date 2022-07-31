@@ -7,11 +7,11 @@
 Music Music_new(){
 	Music music;
 	music.audio = Mix_LoadMUS("../audio/inGame.mp3");
+	return music;
 }
 
-void quit_Audio(Game *game){
-	Mix_FreeMusic(game->music.audio);	//liberamos la musica
-	game->music.audio = NULL;
-	
+void quit_Audio(Music music){
+	Mix_FreeMusic(music.audio);	//liberamos la musica
+	music.audio = NULL;
 	Mix_Quit();	//Cerrar la musica
 }

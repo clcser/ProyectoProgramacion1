@@ -134,7 +134,7 @@ int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
 }
 
 void Game_delete(Game game) {
-    quit_Audio(game.music.audio);
+    quit_Audio(game.music);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
     for(int i=0; i<3; ++i){
