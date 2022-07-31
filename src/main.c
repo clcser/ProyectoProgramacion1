@@ -16,8 +16,8 @@ int main(int argc, char *argv[]) {
     Context_init();
     Start_menu start_menu = Start_menu_new();
     
-    while(Start_menu_state(&start_menu)){
-        Start_menu_draw(start_menu, start_menu.frame);   
+    while(Start_menu_state(&start_menu)){   // PENDIENTE HACER QUE CON Q SE SALGA DE TODO EL JUEGO Y NO SÓLO DEL MENÚ
+        Start_menu_draw(start_menu, start_menu.frame);
     } 
      
     Game game = Game_new();
