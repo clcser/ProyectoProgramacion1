@@ -5,7 +5,7 @@
 #include <SDL2/SDL_image.h>
 
 typedef struct {
-    SDL_Surface *image;
+    SDL_Surface *image[2];
     SDL_Rect position;
     float vel;
 } Background;

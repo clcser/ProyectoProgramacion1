@@ -21,7 +21,8 @@ Game Game_new() {
     game.screen_surface = SDL_GetWindowSurface(window);
     game.duck = Duck_new();
     game.costume = (rand()%4)*2;
-    game.background[0] = Background_new();
+    game.background = Background_new();
+    game.scenery = (rand()%2);
     game.music = Music_new();
     for(int i = 0; i < PIPE_NUMBER; i++) {
         game.pipeline[i] = Pipeline_new(i);    
@@ -30,10 +31,9 @@ Game Game_new() {
     return game;
 }
 
-void Game_draw(Game game, int costume) {
+void Game_draw(Game game, int costume, int scenery) {
     SDL_FillRect(game.screen_surface, NULL, SDL_MapRGB(game.screen_surface->format, 255, 255, 255));
-    SDL_BlitSurface(game.background[0].image, &game.background[0].position, game.screen_surface, NULL);
-    // SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, &game.background[1].position);    
+    SDL_BlitSurface(game.background.image[scenery], &game.background.position, game.screen_surface, NULL);   
     for(int i = 0; i < PIPE_NUMBER; i++) {
         SDL_Rect dest = game.pipeline[i].upper.position;
         dest.y -= game.pipeline[i].upper.image->h;
@@ -102,7 +102,6 @@ int Game_update_state(Game *game) {
         lastTime = currentTime;
     }
 
-
     Duck_move(&game->duck, &jump, count);
     
     for(int i = 0; i < PIPE_NUMBER; i++) {
@@ -110,7 +109,7 @@ int Game_update_state(Game *game) {
         Game_manage_collissions(&game->duck, &game->pipeline[i]);
     }
 
-    Background_move(&game->background[0]);
+    Background_move(&game->background);
 
     //printf("%d\n", count);
     last_tick = SDL_GetTicks();
@@ -136,7 +135,7 @@ void Game_delete(Game game) {
     quit_Audio(game);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);
-    SDL_FreeSurface(game.background->image);
+    SDL_FreeSurface(game.background.image[1]);
     for(int i=0; i<8; ++i){
         SDL_FreeSurface(game.duck.image[i]);
     }

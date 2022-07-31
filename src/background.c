@@ -4,10 +4,11 @@ static SDL_Surface *background_surface = NULL;
 
 Background Background_new() {
     Background background;
-    if (background_surface == NULL) {
-        background_surface = IMG_Load("../assets/grass.png");
-    }
-    background.image = background_surface;
+    /*if (background_surface == NULL) {
+        background_surface = IMG_Load("../assets/background2.png");
+    }*/
+    background.image[0] =  IMG_Load("../assets/background1.png");
+    background.image[1] =  IMG_Load("../assets/background2.png");
     background.position.x = 0;
     background.position.y = 0;
     background.position.w = 768;

@@ -11,8 +11,8 @@ extern int running,count,separation_y;
 typedef struct {
     Duck duck;
     int costume;
-    int timer;
-    Background background[2];
+    Background background;
+    int scenery;
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
@@ -20,7 +20,7 @@ typedef struct {
 
 Game Game_new();
 
-void Game_draw(Game game, int costume);
+void Game_draw(Game game, int costume, int scenery);
 
 int Game_update_state   (Game *game);
 
