@@ -22,6 +22,7 @@ typedef struct {
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
+    Sound sound;
     Menu menu[1];
     SDL_Surface *lose_menu;
 } Game;

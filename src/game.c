@@ -25,6 +25,7 @@ Game Game_new() {
     game.background = Background_new();
     game.scenery = (rand()%3);
     game.music = Music_new();
+    game.sound = Sound_effect();
     game.menu[0]= Menu_fail(); 
     for(int i = 0; i < PIPE_NUMBER; i++) {
         game.pipeline[i] = Pipeline_new(i);    
@@ -50,7 +51,6 @@ void Game_draw(Game game, int costume, int scenery) {
      		     &game.menu[0].position, 
    		      game.screen_surface, NULL);
      
-    running=0;
     }
     SDL_UpdateWindowSurface(window);
 }
@@ -125,6 +125,11 @@ int Game_update_state(Game *game) {
 
     last_tick = SDL_GetTicks();
     return running;
+    
+    if(collision==true){
+    Mix_PlayChannel(-1 ,game->sound.effect, 0 );
+    
+    }
 }
 
 //void optionsMenu();
@@ -146,12 +151,13 @@ int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
 int Game_Lose(bool collision){
 	bool game_lose;
 	if(collision==true){	
-	
+		
 	}
 	return game_lose;
 }
 
 void Game_delete(Game game) {
+    quit_Sound(game.sound);
     quit_Audio(game.music);
     SDL_FreeSurface(game.pipeline->upper.image);
     SDL_FreeSurface(game.pipeline->lower.image);

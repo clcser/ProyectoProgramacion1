@@ -16,9 +16,19 @@ void play_audio(enum audio type);
 
 typedef struct {
 	Mix_Music *audio;
+
 }Music;
 
+typedef struct{
+	Mix_Chunk *effect;
+
+}Sound;
+
+Sound Sound_effect();
+
 Music Music_new();
+
+void quit_Sound();
 
 void quit_Audio();
 
