@@ -5,11 +5,11 @@
 #include "context.h"
 #include "startmenu.h"
 
-#define MS_PER_TICK2 80
+#define MS_PER_FRAME 80
 unsigned int lastTimeStartMenu = 0;
 unsigned int currentTimeStartMenu;
 int run_menu = 1, quit = 0;
-uint32_t last_tick2 = 0;
+uint32_t last_frame = 0;
 
 Start_menu Start_menu_new(){
     Start_menu start_menu;
@@ -51,7 +51,7 @@ void Start_menu_animation(Start_menu *start_menu){
 */
 
 int Start_menu_state(Start_menu *start_menu){
-    if(last_tick2 + MS_PER_TICK2 >= SDL_GetTicks()) {
+    if(last_frame + MS_PER_FRAME >= SDL_GetTicks()) {
         return 2;
     }
 
@@ -86,6 +86,6 @@ int Start_menu_state(Start_menu *start_menu){
     }
     lastTimeStartMenu = currentTimeStartMenu;
     
-    last_tick2 = SDL_GetTicks();
+    last_frame = SDL_GetTicks();
     return run_menu;
 }
