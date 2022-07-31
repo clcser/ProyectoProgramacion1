@@ -9,6 +9,9 @@
 
 #define MS_PER_TICK 10
 
+unsigned int lastTime = 0;
+unsigned int currentTime;
+
 int running = 1, count = 0, jump = 0;
 
 uint32_t last_tick = 0;
@@ -17,6 +20,7 @@ Game Game_new() {
     Game game;
     game.screen_surface = SDL_GetWindowSurface(window);
     game.duck = Duck_new();
+    game.costume = (rand()%4)*2;
     game.background[0] = Background_new();
     game.music = Music_new();
     for(int i = 0; i < PIPE_NUMBER; i++) {
@@ -27,7 +31,6 @@ Game Game_new() {
 }
 
 void Game_draw(Game game, int costume) {
-    printf("DRAW_S: %d\n", SDL_GetTicks());
     SDL_FillRect(game.screen_surface, NULL, SDL_MapRGB(game.screen_surface->format, 255, 255, 255));
     SDL_BlitSurface(game.background[0].image, &game.background[0].position, game.screen_surface, NULL);
     // SDL_BlitSurface(game.background[1].image, NULL, game.screen_surface, &game.background[1].position);    
@@ -39,26 +42,20 @@ void Game_draw(Game game, int costume) {
     }
     SDL_BlitScaled(game.duck.image[costume], NULL, game.screen_surface, &game.duck.position);
     SDL_UpdateWindowSurface(window);
-    printf("DRAW_E: %d\n", SDL_GetTicks());
 }
+
 
 int Game_update_state(Game *game) {
     if(last_tick + MS_PER_TICK >= SDL_GetTicks()) {
-        printf("Skipped tick %d\n", SDL_GetTicks());
         return 2;
     }
     SDL_Event event;
-    int costume = (rand()%5)*2;
-    int default_costume = costume;
 
-     while (SDL_PollEvent(&event)) {
+    while (SDL_PollEvent(&event)) {
         switch(event.type) {
             case SDL_QUIT:
                 running = 0;
-                break;
-            case SDL_KEYUP:
-                costume = default_costume;
-                break;             
+                break;           
             case SDL_KEYDOWN:
                 switch(event.key.keysym.sym) {
                     case SDLK_m:
@@ -83,10 +80,6 @@ int Game_update_state(Game *game) {
                         running = 0;
                         break;
                     case SDLK_SPACE:
-                        costume++;
-                        if(costume>=9){
-                        	costume = 0;
-                        }
                         if(event.key.repeat == 0)
                             jump = 1;
                         break;
@@ -97,6 +90,18 @@ int Game_update_state(Game *game) {
     }
 
     // actualizar variables
+
+    currentTime = SDL_GetTicks();
+    if(currentTime > lastTime + 100){
+        if(game->costume % 2 == 0){
+            game->costume++;
+        }
+        else{
+            game->costume--;
+        }
+        lastTime = currentTime;
+    }
+
 
     Duck_move(&game->duck, &jump, count);
     

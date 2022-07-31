@@ -9,11 +9,13 @@
 #include "game.h"
 #include "context.h"
 
+
 int main(int argc, char *argv[]) {
+    srand(time(0));
     Context_init();
-    Game game = Game_new();   
+    Game game = Game_new();  
     while(Game_update_state(&game)) 
-        Game_draw(game, 0);
+        Game_draw(game, game.costume);
     //Game_main_loop(game);
     Game_delete(game);
     Context_quit();

@@ -1,6 +1,7 @@
 #ifndef DUCK_H
 #define DUCK_H
 
+
 #include <SDL2/SDL.h>
 
 typedef struct {
@@ -12,5 +13,6 @@ typedef struct {
 
 Duck Duck_new();
 void Duck_move();
+void Duck_animation();
 
 #endif //DUCK_H

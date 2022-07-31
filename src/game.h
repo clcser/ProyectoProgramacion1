@@ -10,6 +10,8 @@ extern int running,count,separation_y;
 
 typedef struct {
     Duck duck;
+    int costume;
+    int timer;
     Background background[2];
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
