@@ -12,7 +12,7 @@
 unsigned int lastTime = 0;
 unsigned int currentTime;
 
-int running = 1, count = 0, jump = 0;
+int running = 1, count = 0, jump = 0, collision = 0;
 
 uint32_t last_tick = 0;
 
@@ -106,7 +106,8 @@ int Game_update_state(Game *game) {
     
     for(int i = 0; i < PIPE_NUMBER; i++) {
         Pipeline_move(&game->pipeline[i]);
-        Game_manage_collissions(&game->duck, &game->pipeline[i]);
+        if(Game_manage_collissions(&game->duck, &game->pipeline[i]))//collision == 1)
+            running = 0;
     }
 
     Background_move(&game->background);
@@ -119,16 +120,16 @@ int Game_update_state(Game *game) {
 //void optionsMenu();
 //void runGame();
 
-void Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
-    bool collission;
+int Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
     if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
     && duck->position.x + duck->position.w > pipeline->upper.position.x) {
         if(duck->position.y < pipeline->center - separation_y/2 
         || duck->position.y + duck->position.h > pipeline->center + separation_y/2) {
-            collission = true;
             printf("collision!\n");
+            return 1;
         }
     }
+    return 0;
 }
 
 void Game_delete(Game game) {
@@ -142,5 +143,4 @@ void Game_delete(Game game) {
         SDL_FreeSurface(game.duck.image[i]);
     }
     SDL_FreeSurface(game.screen_surface);
-
 }
