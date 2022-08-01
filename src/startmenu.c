@@ -5,7 +5,7 @@
 #include "context.h"
 #include "startmenu.h"
 
-#define MS_PER_FRAME 80
+#define MS_PER_FRAME 90
 unsigned int lastTimeStartMenu = 0;
 unsigned int currentTimeStartMenu;
 int run_menu = 1, quit = 0;
@@ -62,7 +62,7 @@ int Start_menu_state(Start_menu *start_menu){
 
     
     currentTimeStartMenu = SDL_GetTicks();
-    if(currentTimeStartMenu > lastTimeStartMenu + 80){
+    if(currentTimeStartMenu > lastTimeStartMenu + MS_PER_FRAME){
         if(start_menu->frame < 3){
             start_menu->frame++;
         }
