@@ -34,8 +34,8 @@ void Final_score_draw(Final_score final_score, Game game, SDL_Surface *backgroun
     actual_score = itoa(score, actual_score, 10);
     best_score = itoa(game.best_score, best_score, 10);
     //printf("%s\n",actual_score)
-    struct SDL_Rect r1 = {410,335,15,20};
-    struct SDL_Rect r2 = {410,400,20,20};
+    struct SDL_Rect r1 = {430,337,15,20};
+    struct SDL_Rect r2 = {400,410,20,20};
     struct SDL_Color c = {245, 200, 255, 0xFF};
     Game_print_text(game, actual_score, r1, 10.0, c);
     Game_print_text(game, best_score , r2, 10.0, c);
