@@ -10,6 +10,7 @@
 
 SDL_Window *window = NULL;
 TTF_Font *font;
+FILE *scores;
 
 // inicializa SDL
 int Context_init() {
@@ -55,9 +56,15 @@ int Context_init() {
         return EXIT_FAILURE;
     }
 
+    scores = fopen("scores.txt", "r+");
+    if (!scores) {
+        printf("Error abriendo archivo\n");
+        return EXIT_FAILURE;
+    }
+
 }
 
-// matar todo y cerrar el programa
+// cerrar todo
 void Context_quit() {
     SDL_DestroyWindow(window);
     TTF_CloseFont(font);

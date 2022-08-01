@@ -9,6 +9,7 @@
 
 extern SDL_Window *window;
 extern TTF_Font *font;
+extern FILE *scores;
 
 int Context_init();
 

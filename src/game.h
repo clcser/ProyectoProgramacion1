@@ -16,7 +16,10 @@ typedef struct {
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
+    int best_score;
 } Game;
+
+char* itoa(int value, char* result, int base);
 
 Game Game_new();
 
@@ -24,11 +27,11 @@ void Game_draw(Game game, int costume, int scenery);
 
 int Game_update_state(Game *game);
 
-void Game_score_counter(Pipeline *pipeline);
+void Game_score_counter(Game *game, Pipeline *pipeline);
 
 void Game_print_text(Game game, const char *text, struct SDL_Rect rect, float scale, struct SDL_Color color);
 
-int Game_manage_collisions(Duck *duck, Pipeline *pipeline);
+int Game_manage_collisions(Game *game, Duck *duck, Pipeline *pipeline);
 
 void Game_delete(Game game);
 

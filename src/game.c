@@ -67,6 +67,8 @@ Game Game_new() {
         game.pipeline[i] = Pipeline_new(i);    
     }
     last_tick = SDL_GetTicks();
+    fscanf(scores,"%d",&game.best_score);
+    //printf("%d\n", game.best_score);
     return game;
 }
 
@@ -164,16 +166,17 @@ int Game_update_state(Game *game) {
     }
 
     Duck_move(&game->duck, &jump, count);
-    
+
     for(int i = 0; i < PIPE_NUMBER; i++) {
         Pipeline_move(&game->pipeline[i]);
-        if(Game_manage_collisions(&game->duck, &game->pipeline[i])) {
+        if(Game_manage_collisions(game, &game->duck, &game->pipeline[i])) {
             running = 0;
             break;
         }
-        Game_score_counter(&game->pipeline[i]);
-        //printf("%d PUNTOS \n", score);
-   }
+        Game_score_counter(game, &game->pipeline[i]);
+        //printf("%d PUNTOS \n", score);    
+    }
+
 
     Background_move(&game->background);
 
@@ -184,21 +187,27 @@ int Game_update_state(Game *game) {
 //void optionsMenu();
 //void runGame();
 
-int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
+int Game_manage_collisions(Game *game, Duck *duck, Pipeline *pipeline) {
     if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w 
     && duck->position.x + duck->position.w > pipeline->upper.position.x) { //colisiones en el eje x
         if(duck->position.y < pipeline->center - separation_y/2 - 11
         || duck->position.y + duck->position.h > pipeline->center + separation_y/2) { // colisiones en el eje y
             //printf("collision!\n");
+            scores = fopen("scores.txt", "w");
+            fprintf(scores, "%d ", game->best_score);
             return 1;
         } 
     }
     return 0;
 }
 
-void Game_score_counter(Pipeline *pipeline) {
+void Game_score_counter(Game *game,Pipeline *pipeline) {
     if(pipeline->lower.position.x + pipeline->lower.position.w == 59) {
         score++;
+    }
+    if(score > game->best_score) {
+        game->best_score = score;
+        //printf("%d\n", score);
     }
 }
 

@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
     Final_score final_score = Final_score_new();
     while(Final_score_state(&final_score)){
-        Final_score_draw(final_score, game.background.image[game.scenery], game.background.position);
+        Final_score_draw(final_score, game, game.background.image[game.scenery], game.background.position);
     }
 
     Game_delete(game);

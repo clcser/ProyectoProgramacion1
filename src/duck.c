@@ -24,7 +24,7 @@ Duck Duck_new() { // hacer que tenga de parametro una imagen(?
 
 void Duck_move(Duck *duck, int *jump, int count) {
     if(*jump) { // salto
-        printf("jump!\n");
+        //printf("jump!\n");
         for(float i = 0; i < 1; i += 0.01) {
             duck->vel = -6*i;
         }

@@ -21,10 +21,27 @@ Final_score Final_score_new(){
 	return final_score;
 }
 
-void Final_score_draw(Final_score final_score, SDL_Surface *background, SDL_Rect position){
+void Final_score_draw(Final_score final_score, Game game, SDL_Surface *background, SDL_Rect position){
 	SDL_FillRect(final_score.screen_surface3, NULL, SDL_MapRGB(final_score.screen_surface3->format, 255, 255, 255));
     SDL_BlitSurface(background, &position, final_score.screen_surface3, NULL);
-    SDL_BlitSurface(final_score.score_table, &final_score.position, final_score.screen_surface3, NULL);   
+    SDL_BlitSurface(final_score.score_table, &final_score.position, final_score.screen_surface3, NULL);
+
+    char *actual_score, *best_score;
+    
+    actual_score = malloc(10);
+    best_score = malloc(10);
+    
+    actual_score = itoa(score, actual_score, 10);
+    best_score = itoa(game.best_score, best_score, 10);
+    //printf("%s\n",actual_score)
+    struct SDL_Rect r1 = {410,335,15,20};
+    struct SDL_Rect r2 = {410,400,20,20};
+    struct SDL_Color c = {245, 200, 255, 0xFF};
+    Game_print_text(game, actual_score, r1, 10.0, c);
+    Game_print_text(game, best_score , r2, 10.0, c);
+    free(actual_score);
+    free(best_score);
+
     SDL_UpdateWindowSurface(window);
 }
 
