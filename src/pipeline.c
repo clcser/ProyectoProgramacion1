@@ -42,7 +42,6 @@ Pipeline Pipeline_new(int separation_x) {
 void Pipeline_move(Pipeline *pipeline) {
     pipeline->upper.position.x -= 3;
     pipeline->lower.position.x -= 3;
-    //pipeline->center--;
 
     if (pipeline->upper.position.x < -100) {
         Pipeline_respawn(pipeline);

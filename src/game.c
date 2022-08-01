@@ -16,7 +16,7 @@
 int running = 1, count = 0, jump = 0, score = 0;
 uint32_t last_tick = 0;
 
-///// itoa //////
+/////// itoa: funcion para pasar de int a char //////
 
 /**
 	 * C++ version 0.4 char* style "itoa":
@@ -72,7 +72,7 @@ void Game_print_text(Game game, const char *text, struct SDL_Rect rect, float sc
     }
     rect.w = surface->w * scale;
     rect.h = surface->h * scale;
-    SDL_BlitScaled(surface, NULL, game.screen_surface, &rect);
+    SDL_BlitSurface(surface, NULL, game.screen_surface, &rect);
     SDL_FreeSurface(surface);
 }
 
@@ -87,14 +87,16 @@ void Game_draw(Game game, int costume) {
         SDL_BlitScaled(game.pipeline[i].lower.image, NULL, game.screen_surface, &game.pipeline[i].lower.position);
     }
     SDL_BlitScaled(game.duck.image[costume], NULL, game.screen_surface, &game.duck.position);
+    
     char *str;
     str = malloc(10);
     str = itoa(score, str, 10);
     //printf("%s\n",str);
-    struct SDL_Rect r = {100,100,100,100};
+    struct SDL_Rect r = {700,50,100,100};
     struct SDL_Color c = {0xFF, 0xFF, 0xFF, 0xFF};
     Game_print_text(game, str, r, 10.0, c);
     free(str);
+
     SDL_UpdateWindowSurface(window);
 }
 
