@@ -14,8 +14,6 @@ Start_menu Start_menu_new();
 
 void Start_menu_draw(Start_menu start_menu, int frame);
 
-//void Start_menu_animation(Start_menu *start_menu);
-
 int Start_menu_state(Start_menu *start_menu);
 
 #endif //STARTMENU_H

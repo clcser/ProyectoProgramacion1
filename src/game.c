@@ -12,7 +12,7 @@
 unsigned int lastTime = 0;
 unsigned int currentTime;
 
-int running = 1, count = 0, jump = 0, collision = 0;
+int running = 1, count = 0, jump = 0, collision = 0, score = 0;
 
 uint32_t last_tick = 0;
 
@@ -108,6 +108,11 @@ int Game_update_state(Game *game) {
         Pipeline_move(&game->pipeline[i]);
         if(Game_manage_collisions(&game->duck, &game->pipeline[i])){ //collision == 1)
             running = 0;
+            break;
+        }
+        if(Game_score_counter(game->pipeline[i], &score)){
+            score++;
+            printf("%d PUNTOS \n", score);
         }
     }
 
@@ -131,6 +136,15 @@ int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
     }
     return 0;
 }
+
+
+int Game_score_counter(Pipeline pipeline, int *score){
+    if(pipeline.lower.position.x + pipeline.lower.position.w == 59){
+        return 1;
+    }
+    return 0;
+}
+
 
 void Game_delete(Game game) {
     quit_Audio(game.music);

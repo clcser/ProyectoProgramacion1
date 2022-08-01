@@ -26,6 +26,8 @@ int Game_update_state(Game *game);
 
 int Game_manage_collisions(Duck *duck, Pipeline *pipeline);
 
+int Game_score_counter(Pipeline pipeline, int *score);
+
 void Game_delete(Game game);
 
 #endif //GAME_H

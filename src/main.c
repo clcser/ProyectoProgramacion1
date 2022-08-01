@@ -23,11 +23,15 @@ int main(int argc, char *argv[]) {
         Start_menu_draw(start_menu, start_menu.frame);
     }
     Mix_HaltMusic();
+    SDL_Delay(200);
      
     Game game = Game_new();
     Mix_PlayMusic(music.audio, -1);
-    while(Game_update_state(&game)) 
+    while(Game_update_state(&game)){
         Game_draw(game, game.costume, game.scenery);
+    }
+    SDL_Delay(500);
+
     Game_delete(game);
     Context_quit();
     return 0;

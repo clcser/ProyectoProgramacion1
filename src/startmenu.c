@@ -35,21 +35,6 @@ void Start_menu_draw(Start_menu start_menu, int frame){
     SDL_UpdateWindowSurface(window);
 }
 
-/*
-void Start_menu_animation(Start_menu *start_menu){
-    currentTimeStartMenu = SDL_GetTicks();
-    if(currentTimeStartMenu > lastTimeStartMenu + 100){
-        if(start_menu->frame > 3){
-            start_menu->frame = 0;
-        }
-        else{
-            start_menu->frame++; 
-        }
-    }
-    lastTimeStartMenu = currentTimeStartMenu;  
-}
-*/
-
 int Start_menu_state(Start_menu *start_menu){
     if(last_frame + MS_PER_FRAME >= SDL_GetTicks()) {
         return 2;
@@ -64,9 +49,10 @@ int Start_menu_state(Start_menu *start_menu){
                 break;
             case SDL_KEYDOWN:
                 switch(event.key.keysym.sym){
-                    case SDLK_q:
+                    /*case SDLK_q:
                         run_menu = 0;
-                        break;    
+                        break;
+                    */    
                     case SDLK_SPACE:
                         run_menu = 0;
                         break;                
