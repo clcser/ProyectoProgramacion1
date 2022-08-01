@@ -16,6 +16,7 @@ typedef struct {
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
+    int score;
     int best_score;
 } Game;
 

@@ -31,7 +31,7 @@ void Final_score_draw(Final_score final_score, Game game, SDL_Surface *backgroun
     actual_score = malloc(10);
     best_score = malloc(10);
     
-    actual_score = itoa(score, actual_score, 10);
+    actual_score = itoa(game.score, actual_score, 10);
     best_score = itoa(game.best_score, best_score, 10);
     //printf("%s\n",actual_score)
     struct SDL_Rect r1 = {430,337,15,20};

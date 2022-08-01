@@ -16,7 +16,7 @@
 unsigned int lastTime = 0;
 unsigned int currentTime;
 
-int running = 1, count = 0, jump = 0, collision = 0, score = 0;
+int running = 1, count = 0, jump = 0, collision = 0; //, score = 0;
 
 uint32_t last_tick = 0;
 
@@ -66,6 +66,7 @@ Game Game_new() {
     for(int i = 0; i < PIPE_NUMBER; i++) {
         game.pipeline[i] = Pipeline_new(i);    
     }
+    game.score = 0;
     last_tick = SDL_GetTicks();
     fscanf(scores,"%d",&game.best_score);
     //printf("%d\n", game.best_score);
@@ -98,7 +99,7 @@ void Game_draw(Game game, int costume, int scenery) {
     
     char *str;
     str = malloc(10);
-    str = itoa(score, str, 10);
+    str = itoa(game.score, str, 10);
     //printf("%s\n",str);
     struct SDL_Rect r = {384,50,15,20};
     struct SDL_Rect r1 = {380,50,20,20};
@@ -174,9 +175,8 @@ int Game_update_state(Game *game) {
             break;
         }
         Game_score_counter(game, &game->pipeline[i]);
-        //printf("%d PUNTOS \n", score);    
-    }
-
+        //printf("%d PUNTOS \n", score);
+   }
 
     Background_move(&game->background);
 
@@ -201,12 +201,12 @@ int Game_manage_collisions(Game *game, Duck *duck, Pipeline *pipeline) {
     return 0;
 }
 
-void Game_score_counter(Game *game,Pipeline *pipeline) {
+void Game_score_counter(Game *game, Pipeline *pipeline) {
     if(pipeline->lower.position.x + pipeline->lower.position.w == 59) {
-        score++;
+        game->score++;
     }
-    if(score > game->best_score) {
-        game->best_score = score;
+    if(game->score > game->best_score) {
+        game->best_score = game->score;
         //printf("%d\n", score);
     }
 }
