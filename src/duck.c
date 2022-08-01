@@ -30,8 +30,8 @@ void Duck_move(Duck *duck, int *jump, int count) {
         *jump = 0;
     }
 
-    if(duck->position.y > 660) {// si se pasa por abajo
-        duck->position.y = 660;
+    if(duck->position.y > 708) {// si se pasa por abajo
+        duck->position.y = 708;
         duck->vel = 0;
     }
     else { // para que caiga

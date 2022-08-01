@@ -11,8 +11,8 @@
 
 int main(int argc, char *argv[]) {
     Context_init();
-    Game game = Game_new();   
-    while(Game_update_state(&game)) 
+    Game game = Game_new(); 
+    while(Game_update_state(&game))
         Game_draw(game, 0);
     //Game_main_loop(game);
     Game_delete(game);

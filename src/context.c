@@ -9,6 +9,7 @@
 #include <SDL2/SDL_mixer.h>
 
 SDL_Window *window = NULL;
+TTF_Font *font;
 
 // inicializa SDL
 int Context_init() {
@@ -16,12 +17,11 @@ int Context_init() {
     const unsigned char* key;
 	key = SDL_GetKeyboardState(NULL);
 	
-     if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) == -1 )
+     if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) == -1 )
      {
         printf( "Error al inicializar SDL_mixer\n");
         return EXIT_FAILURE;
      }
-
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) { // inicia SDL
         printf("Error al inicializar SDL\n");
@@ -32,6 +32,15 @@ int Context_init() {
         printf("Error al iniciar SDL_image\n");
         return EXIT_FAILURE;
     }
+    
+    if (TTF_Init() != 0) {
+        printf("Error al iniciar SDL_ttf\n");
+        return EXIT_FAILURE;
+    }
+
+    font = TTF_OpenFont("../assets/font.ttf", 16); // carga la font
+    if (font == NULL)
+        printf("Error al abrir font\n");
 
     window = SDL_CreateWindow("FlappyDuck", // crea la ventana
                               SDL_WINDOWPOS_CENTERED, 
@@ -51,12 +60,10 @@ int Context_init() {
 // matar todo y cerrar el programa
 void Context_quit() {
     SDL_DestroyWindow(window);
+    TTF_CloseFont(font);
+    TTF_Quit();
+    Mix_Quit();
     IMG_Quit();
     SDL_Quit();
 }
-
-void print_text(const char *text, SDL_Rect rect, float scale, SDL_Color color) {
-
-}
-
 

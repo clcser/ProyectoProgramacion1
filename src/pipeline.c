@@ -24,7 +24,7 @@ Pipeline Pipeline_new(int separation_x) {
     pipeline.upper.position.h = pipeline_upper_surface->h * 4;
     pipeline.upper.position.w = pipeline_upper_surface->w * 4;     
     pipeline.upper.position.y = pipeline.center - separation_y / 2 - 548; // 548 := medida de la tuberia (87*4) + 200 de margen del rand
-    pipeline.upper.position.x = WINDOW_WIDTH + 270*separation_x; 
+    pipeline.upper.position.x = WINDOW_WIDTH + 300*separation_x; 
 
     if (pipeline_lower_surface == NULL) {
         pipeline_lower_surface = IMG_Load("../assets/pipelinelow.png");
@@ -34,7 +34,7 @@ Pipeline Pipeline_new(int separation_x) {
     pipeline.lower.position.h = pipeline_lower_surface->h * 4;
     pipeline.lower.position.w = pipeline_lower_surface->w * 4;     
     pipeline.lower.position.y = pipeline.center + separation_y / 2;
-    pipeline.lower.position.x = WINDOW_WIDTH + 270*separation_x;
+    pipeline.lower.position.x = WINDOW_WIDTH + 300*separation_x;
 
     return pipeline;
 }

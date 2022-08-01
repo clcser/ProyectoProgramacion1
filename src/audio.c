@@ -11,10 +11,10 @@ Music Music_new(){
 
 void quit_Audio(Game *game)
 {
-	Mix_FreeMusic(game->music.audio);	//liberamos la musica
+	Mix_FreeMusic(game->music.audio);	// liberamos la musica
 	game->music.audio = NULL;
 	
-	Mix_Quit();	//Cerrar la musica
+	Mix_Quit();	// Cerrar la musica
 
 }
 
