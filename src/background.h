@@ -5,13 +5,12 @@
 #include <SDL2/SDL_image.h>
 
 typedef struct {
-    SDL_Surface *image;
+    SDL_Surface *image[3];
     SDL_Rect position;
-    float vel;
 } Background;
 
 Background Background_new();
 
-void Background_move();
+void Background_move(Background *bg);
 
 #endif //BACKGROUND_H

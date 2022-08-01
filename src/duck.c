@@ -1,6 +1,7 @@
 #include "game.h"
 #include <SDL2/SDL_image.h>
 
+
 Duck Duck_new() { // hacer que tenga de parametro una imagen(?
     Duck duck;
     
@@ -44,3 +45,19 @@ void Duck_move(Duck *duck, int *jump, int count) {
         duck->vel = 0.3;
     }
 }
+
+/*
+void Duck_animation(int *costume, unsigned int *currentTime, unsigned int *lastTime){
+    if(*currentTime > *lastTime + 100){
+        printf("TIEMPO!\n");
+        if(*costume % 2 == 0){
+            *costume++;
+            printf("SUBE\n");
+        }
+        else{
+            *costume--;
+            printf("BAJA\n");
+        }
+    }
+}
+*/
