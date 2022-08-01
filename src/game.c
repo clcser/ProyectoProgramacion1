@@ -73,11 +73,10 @@ int Game_update_state(Game *game) {
                     case SDLK_s:
                         Mix_HaltMusic();
                         break;
-                    
-                    // case SDLK_ESCAPE:
-                    case SDLK_q:
+
+                    /*case SDLK_q:
                         running = 0;
-                        break;
+                        break;*/
                     case SDLK_SPACE:
                         if(event.key.repeat == 0)
                             jump = 1;
