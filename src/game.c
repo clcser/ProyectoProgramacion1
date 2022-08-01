@@ -92,8 +92,10 @@ void Game_draw(Game game, int costume) {
     str = malloc(10);
     str = itoa(score, str, 10);
     //printf("%s\n",str);
-    struct SDL_Rect r = {700,50,100,100};
+    struct SDL_Rect r = {384,50,15,20};
+    struct SDL_Rect r1 = {380,50,20,20};
     struct SDL_Color c = {0xFF, 0xFF, 0xFF, 0xFF};
+    SDL_FillRect(game.screen_surface, &r1, SDL_MapRGB(game.screen_surface->format, 0, 0, 0));
     Game_print_text(game, str, r, 10.0, c);
     free(str);
 
@@ -165,7 +167,7 @@ int Game_update_state(Game *game) {
             running = 0;
         }
         Game_score_counter(&game->pipeline[i]);
-        printf("%d PUNTOS \n", score);
+        //printf("%d PUNTOS \n", score);
     }
 
     Background_move(&game->background[0]);
@@ -183,7 +185,7 @@ int Game_manage_collissions(Duck *duck, Pipeline *pipeline) {
     && duck->position.x + duck->position.w > pipeline->upper.position.x) { //colisiones en el eje x
         if(duck->position.y < pipeline->center - separation_y/2 - 11
         || duck->position.y + duck->position.h > pipeline->center + separation_y/2) { // colisiones en el eje y
-            printf("collision!\n");
+            //printf("collision!\n");
             return 1;
         } 
     }
