@@ -150,9 +150,6 @@ int Game_update_state(Game *game) {
                 }
         }
     }
-
-    //Context_print_text(":)", (SDL_Rect) {10,10}, 3, (SDL_Color) {255,255,255});
-
     // actualizar variables
 
     currentTime = SDL_GetTicks();
