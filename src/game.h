@@ -16,6 +16,7 @@ typedef struct {
     Pipeline pipeline[PIPE_NUMBER];
     SDL_Surface *screen_surface;
     Music music;
+    int score;
 } Game;
 
 Game Game_new();
@@ -24,7 +25,7 @@ void Game_draw(Game game, int costume, int scenery);
 
 int Game_update_state(Game *game);
 
-void Game_score_counter(Pipeline *pipeline);
+void Game_score_counter(Game *game, Pipeline *pipeline);
 
 void Game_print_text(Game game, const char *text, struct SDL_Rect rect, float scale, struct SDL_Color color);
 
