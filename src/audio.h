@@ -17,6 +17,7 @@ void play_audio(enum audio type);
 
 typedef struct {
 	Mix_Music *audio;
+    Mix_Music *start;
 }Music;
 
 Music Music_new();
