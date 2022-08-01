@@ -190,7 +190,6 @@ int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
     && duck->position.x + duck->position.w > pipeline->upper.position.x) { //colisiones en el eje x
         if(duck->position.y < pipeline->center - separation_y/2 - 11
         || duck->position.y + duck->position.h > pipeline->center + separation_y/2) { // colisiones en el eje y
-            //printf("collision!\n");
             return 1;
         } 
     }
@@ -200,7 +199,6 @@ int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
 void Game_score_counter(Game *game, Pipeline *pipeline) {
     if(pipeline->lower.position.x + pipeline->lower.position.w == 59) {
         game->score++;
-        printf("%d \n", game->score);
     }
 }
 
