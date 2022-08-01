@@ -9,6 +9,7 @@
 #include "game.h"
 #include "context.h"
 #include "startmenu.h"
+#include "finalscore.h"
 
 
 int main(int argc, char *argv[]) {
@@ -30,9 +31,15 @@ int main(int argc, char *argv[]) {
     while(Game_update_state(&game)){
         Game_draw(game, game.costume, game.scenery);
     }
-    SDL_Delay(500);
+
+    Final_score final_score = Final_score_new();
+    while(Final_score_state(&final_score)){
+        Final_score_draw(final_score, game.background.image[game.scenery], game.background.position);
+    }
 
     Game_delete(game);
+    Start_menu_delete(start_menu);
+    Final_score_delete(final_score);
     Context_quit();
     return 0;
 }

@@ -75,3 +75,9 @@ int Start_menu_state(Start_menu *start_menu){
     last_frame = SDL_GetTicks();
     return run_menu;
 }
+
+void Start_menu_delete(Start_menu start_menu){
+    for(int i=0; i<3; ++i){
+        SDL_FreeSurface(start_menu.menu_image[i]);
+    }
+}

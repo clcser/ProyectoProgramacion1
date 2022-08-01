@@ -44,7 +44,6 @@ void Game_draw(Game game, int costume, int scenery) {
     SDL_UpdateWindowSurface(window);
 }
 
-
 int Game_update_state(Game *game) {
     if(last_tick + MS_PER_TICK >= SDL_GetTicks()) {
         return 2;
@@ -122,9 +121,6 @@ int Game_update_state(Game *game) {
     return running;
 }
 
-//void optionsMenu();
-//void runGame();
-
 int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
     if(duck->position.x + duck->position.w < pipeline->upper.position.x + pipeline->upper.position.w
     && duck->position.x + duck->position.w > pipeline->upper.position.x) {
@@ -137,14 +133,12 @@ int Game_manage_collisions(Duck *duck, Pipeline *pipeline) {
     return 0;
 }
 
-
 int Game_score_counter(Pipeline pipeline, int *score){
     if(pipeline.lower.position.x + pipeline.lower.position.w == 59){
         return 1;
     }
     return 0;
 }
-
 
 void Game_delete(Game game) {
     quit_Audio(game.music);
